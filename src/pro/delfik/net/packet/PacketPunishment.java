@@ -7,7 +7,7 @@ import javax.naming.CompositeName;
 
 public class PacketPunishment extends Packet{
 
-	private final String nick, moder;
+	private final String nick, moder, reason;
 
 	private final int time;
 
@@ -20,14 +20,20 @@ public class PacketPunishment extends Packet{
 		this.punishment = Punishment.valueOf(split[1]);
 		this.moder = split[2];
 		this.time = Converter.toInt(split[3]);
+		this.reason = split[4];
 	}
 
-	public PacketPunishment(String nick, Punishment punishment, String moder, int time){
+	public PacketPunishment(String nick, Punishment punishment, String moder, int time, String reason){
 		super("punishment");
 		this.nick = nick;
 		this.punishment = punishment;
 		this.moder = moder;
 		this.time = time;
+		this.reason = reason;
+	}
+
+	public PacketPunishment(String nick, Punishment punishment, String moder){
+		this(nick, punishment, moder, 0, "null");
 	}
 
 	public String getNick() {
@@ -46,13 +52,13 @@ public class PacketPunishment extends Packet{
 		return punishment;
 	}
 
-	public PacketPunishment(String nick, Punishment punishment, String moder){
-		this(nick, punishment, moder, 0);
+	public String getReason() {
+		return reason;
 	}
 
 	@Override
 	protected String encode() {
-		return nick + "?" + punishment + "?" + moder + "?" + time;
+		return nick + "?" + punishment + "?" + moder + "?" + time + "?" + reason;
 	}
 
 	public enum Punishment{
