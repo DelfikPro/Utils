@@ -30,6 +30,22 @@ public class PacketPunishment extends Packet{
 		this.time = time;
 	}
 
+	public String getNick() {
+		return nick;
+	}
+
+	public String getModer() {
+		return moder;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public Punishment getPunishment() {
+		return punishment;
+	}
+
 	public PacketPunishment(String nick, Punishment punishment, String moder){
 		this(nick, punishment, moder, 0);
 	}
