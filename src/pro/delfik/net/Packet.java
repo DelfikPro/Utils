@@ -1,6 +1,9 @@
 package pro.delfik.net;
 
+import pro.delfik.net.packet.PacketAuth;
 import pro.delfik.net.packet.PacketInit;
+import pro.delfik.net.packet.PacketPex;
+import pro.delfik.net.packet.PacketPunishment;
 import pro.delfik.net.packet.PacketUser;
 
 import java.lang.reflect.Constructor;
@@ -52,5 +55,8 @@ public abstract class Packet {
 	public static void init(){
 		register(PacketUser.class, "user");
 		register(PacketInit.class, "init");
+		register(PacketAuth.class, "auth");
+		register(PacketPex.class, "pex");
+		register(PacketPunishment.class, "punishment");
 	}
 }

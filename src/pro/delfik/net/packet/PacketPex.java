@@ -3,19 +3,19 @@ package pro.delfik.net.packet;
 import pro.delfik.net.Packet;
 import pro.delfik.util.Rank;
 
-public class PacketUser extends Packet{
+public class PacketPex extends Packet{
 	private final String nick;
 
 	private final Rank rank;
 
-	public PacketUser(String serialize){
-		super("user");
+	public PacketPex(String serialize){
+		super("pex");
 		this.nick = serialize.substring(1);
 		this.rank = Rank.decode(serialize);
 	}
 
-	public PacketUser(String nick, Rank rank){
-		super("user");
+	public PacketPex(String nick, Rank rank){
+		super("pex");
 		this.nick = nick;
 		this.rank = rank;
 	}
