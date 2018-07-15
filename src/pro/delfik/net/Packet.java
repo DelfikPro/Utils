@@ -1,5 +1,6 @@
 package pro.delfik.net;
 
+import pro.delfik.net.packet.PacketInit;
 import pro.delfik.net.packet.PacketUser;
 
 import java.lang.reflect.Constructor;
@@ -50,5 +51,6 @@ public abstract class Packet {
 
 	public static void init(){
 		register(PacketUser.class, "user");
+		register(PacketInit.class, "init");
 	}
 }
