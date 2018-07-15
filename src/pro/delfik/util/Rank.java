@@ -54,4 +54,8 @@ public enum Rank {
 	public String toString() {
 		return String.valueOf(name().charAt(0));
 	}
+	
+	public String represent() {
+		return nameColor + name;
+	}
 }
