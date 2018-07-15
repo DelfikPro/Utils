@@ -53,18 +53,15 @@ public class Converter {
 	}
 	
 	public static String toString(List array, int start, int end, char magic) {
-		if (start >= end) {
-			return String.valueOf(magic);
-		} else {
-			StringBuilder result = new StringBuilder();
-			result.append(array.get(start));
+		if(start >= end) return String.valueOf(magic);
+		StringBuilder result = new StringBuilder();
+		result.append(array.get(start));
+		++start;
+		while (start < end){
+			result.append(magic).append(array.get(start).toString());
 			++start;
-			while(start < end) {
-				result.append(magic).append(array.get(start).toString());
-				++start;
-			}
-			return result.toString();
 		}
+		return result.toString();
 	}
 	
 	public static List<String> toList(String s) {
