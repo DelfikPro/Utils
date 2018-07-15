@@ -1,8 +1,6 @@
 package pro.delfik.util;
 
 public class ArrayUtils {
-	public ArrayUtils() {
-	}
 	
 	public static String toString(Object[] array) {
 		return toString(array, 0, array.length);
@@ -21,20 +19,17 @@ public class ArrayUtils {
 	}
 	
 	public static String toString(Object[] array, int starting, int ending, char magic) {
-		if (starting >= ending) {
-			return "";
-		} else {
-			StringBuilder result = new StringBuilder();
-			result.append(array[starting]);
+		if(starting >= ending) return "";
+		StringBuilder result = new StringBuilder();
+		result.append(array[starting]);
+		++starting;
+
+		while (starting < ending){
+			result.append(magic).append(array[starting] == null ? "null" : array[starting].toString());
 			++starting;
-			
-			while(starting < ending) {
-				result.append(magic).append(array[starting] == null ? "null" : array[starting].toString());
-				++starting;
-			}
-			
-			return result.toString();
 		}
+
+		return result.toString();
 	}
 	
 	public static String toString(Iterable<?> iterable) {
@@ -51,30 +46,26 @@ public class ArrayUtils {
 	public static int indexOf(Object[] array, Object indexOf) {
 		for(int i = 0; i < array.length; ++i) {
 			Object object = array[i];
-			if (object != null && object.equals(indexOf)) {
+			if (object != null && object.equals(indexOf))
 				return i;
-			}
 		}
 		
 		return -1;
 	}
 	
 	public static Object[] arrayShift(Object[] array, int position, Object object, Object[] copyArray) {
-		if (position >= array.length) {
-			return null;
-		} else {
-			System.arraycopy(array, 0, copyArray, 0, position);
-			
-			copyArray[position] = object;
+		if(position >= array.length) return null;
+		System.arraycopy(array, 0, copyArray, 0, position);
+
+		copyArray[position] = object;
+		++position;
+
+		while (position < array.length){
+			copyArray[position] = array[position - 1];
 			++position;
-			
-			while(position < array.length) {
-				copyArray[position] = array[position - 1];
-				++position;
-			}
-			
-			return copyArray;
 		}
+
+		return copyArray;
 	}
 }
 
