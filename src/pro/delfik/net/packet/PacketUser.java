@@ -1,6 +1,7 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.Converter;
 import pro.delfik.util.Rank;
 
 public class PacketUser extends Packet{
@@ -8,16 +9,21 @@ public class PacketUser extends Packet{
 
 	private final Rank rank;
 
+	private final boolean authorized;
+
 	public PacketUser(String serialize){
 		super("user");
-		this.nick = serialize.substring(1);
+		String split[] = serialize.split("\\?");
+		this.nick = split[0].substring(1);
 		this.rank = Rank.decode(serialize);
+		this.authorized = Converter.toBoolean(split[1]);
 	}
 
-	public PacketUser(String nick, Rank rank){
+	public PacketUser(String nick, Rank rank, boolean authorized){
 		super("user");
 		this.nick = nick;
 		this.rank = rank;
+		this.authorized = authorized;
 	}
 
 	public String getNick() {
@@ -28,8 +34,12 @@ public class PacketUser extends Packet{
 		return rank;
 	}
 
+	public boolean isAuthorized() {
+		return authorized;
+	}
+
 	@Override
 	protected String encode() {
-		return rank + nick;
+		return rank + nick + "?" + authorized;
 	}
 }
