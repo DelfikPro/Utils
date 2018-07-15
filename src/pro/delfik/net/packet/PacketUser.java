@@ -21,6 +21,14 @@ public class PacketUser extends Packet{
 		this.rank = rank;
 	}
 
+	public String getNick() {
+		return nick;
+	}
+
+	public Rank getRank() {
+		return rank;
+	}
+
 	@Override
 	protected String encode() {
 		return rank + nick;

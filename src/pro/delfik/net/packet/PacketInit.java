@@ -10,6 +10,10 @@ public class PacketInit extends Packet{
 		this.server = server;
 	}
 
+	public String getServer() {
+		return server;
+	}
+
 	@Override
 	protected String encode() {
 		return server;
