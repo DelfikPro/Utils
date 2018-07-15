@@ -136,6 +136,17 @@ public class Converter {
 		return set;
 	}
 	
+	public static <T> List<String> tabCompleteList(Iterable<T> iterable, Function<T, String> converter, String startstring) {
+		List<String> set = new ArrayList<>();
+		boolean empty = startstring.length() == 0;
+		startstring = smartLowercase(startstring);
+		for (T t : iterable) {
+			String s = converter.apply(t);
+			if (empty || smartLowercase(s).startsWith(smartLowercase(startstring))) set.add(s);
+		}
+		return set;
+	}
+	
 	
 	public static HashMap<String, String> deserializeMap(String string, String entrySeparator, String keyValueSeparator) {
 		if(string == null)return new HashMap<>();
