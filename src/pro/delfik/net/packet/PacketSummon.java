@@ -20,6 +20,14 @@ public class PacketSummon extends Packet {
 		this.server = server;
 	}
 	
+	public String getPlayer() {
+		return player;
+	}
+	
+	public String getServer() {
+		return server;
+	}
+	
 	@Override
 	protected String encode() {
 		return player + '?' + server;

@@ -4,8 +4,8 @@ import pro.delfik.net.Packet;
 import pro.delfik.util.Converter;
 
 public class PacketSSU extends Packet{
+	
 	private final String server;
-
 	private final int online;
 
 	public PacketSSU(String serialize) {
