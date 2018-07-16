@@ -5,6 +5,7 @@ import pro.delfik.net.packet.PacketInit;
 import pro.delfik.net.packet.PacketPex;
 import pro.delfik.net.packet.PacketPunishment;
 import pro.delfik.net.packet.PacketSummon;
+import pro.delfik.net.packet.PacketSSU;
 import pro.delfik.net.packet.PacketUser;
 
 import java.lang.reflect.Constructor;
@@ -60,5 +61,6 @@ public abstract class Packet {
 		register(PacketPex.class, "pex");
 		register(PacketPunishment.class, "punishment");
 		register(PacketSummon.class, "summon");
+		register(PacketSSU.class, "ssu");
 	}
 }
