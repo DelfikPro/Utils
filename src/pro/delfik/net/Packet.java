@@ -7,6 +7,7 @@ import pro.delfik.net.packet.PacketPunishment;
 import pro.delfik.net.packet.PacketSummon;
 import pro.delfik.net.packet.PacketSSU;
 import pro.delfik.net.packet.PacketToggle;
+import pro.delfik.net.packet.PacketTop;
 import pro.delfik.net.packet.PacketUpdateTop;
 import pro.delfik.net.packet.PacketUser;
 
@@ -66,5 +67,6 @@ public abstract class Packet {
 		register(PacketSSU.class, "ssu");
 		register(PacketToggle.class, "toggle");
 		register(PacketUpdateTop.class, "updatetop");
+		register(PacketTop.class, "top");
 	}
 }
