@@ -3,8 +3,6 @@ package pro.delfik.net.packet;
 import pro.delfik.net.Packet;
 import pro.delfik.util.Converter;
 
-import javax.naming.CompositeName;
-
 public class PacketPunishment extends Packet{
 
 	private final String nick, moder, reason;
