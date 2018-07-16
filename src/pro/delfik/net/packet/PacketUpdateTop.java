@@ -40,6 +40,10 @@ public class PacketUpdateTop extends Packet{
 		return beds;
 	}
 
+	public int getDeaths() {
+		return deaths;
+	}
+
 	@Override
 	protected String encode() {
 		return nick + "?" + win + "?" + beds + "?" + deaths;
