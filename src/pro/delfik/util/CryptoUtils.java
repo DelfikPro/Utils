@@ -14,6 +14,7 @@ public class CryptoUtils {
 	
 	public CryptoUtils(String key) {
 		this.key = new SecretKeySpec(key.getBytes(), algoritm);
+		System.out.println("Ключ - '" + key + "', длина ключа - " + key.length());
 	}
 	
 	public String encrypt(String data) {
@@ -56,9 +57,7 @@ public class CryptoUtils {
 		BigInteger bigInt = new BigInteger(1, digest);
 		
 		String md5Hex;
-		for (md5Hex = bigInt.toString(16); md5Hex.length() < 32; md5Hex = "0" + md5Hex) {
-			;
-		}
+		for (md5Hex = bigInt.toString(16); md5Hex.length() < 32; md5Hex = "0" + md5Hex);
 		
 		return md5Hex;
 	}
@@ -205,9 +204,7 @@ public class CryptoUtils {
 		}
 		
 		private BigInteger[][] padding(String message, Keccak.Parameters parameters) {
-			for (message = message + parameters.getD(); message.length() / 2 * 8 % parameters.getR() != parameters.getR() - 8; message = message + "00") {
-				;
-			}
+			for (message = message + parameters.getD(); message.length() / 2 * 8 % parameters.getR() != parameters.getR() - 8; message = message + "00");
 			
 			message = message + "80";
 			int size = message.length() / 2 * 8 / parameters.getR();
@@ -303,7 +300,7 @@ public class CryptoUtils {
 			}
 		}
 		
-		public static enum Parameters {
+		public enum Parameters {
 			KECCAK_224(1152, 28, "01"),
 			KECCAK_256(1088, 32, "01"),
 			KECCAK_384(832, 48, "01"),
@@ -319,7 +316,7 @@ public class CryptoUtils {
 			private final int outputLength;
 			private final String d;
 			
-			private Parameters(int r, int outputLength, String d) {
+			Parameters(int r, int outputLength, String d) {
 				this.r = r;
 				this.outputLength = outputLength;
 				this.d = d;
