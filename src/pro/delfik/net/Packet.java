@@ -7,6 +7,7 @@ import pro.delfik.net.packet.PacketPunishment;
 import pro.delfik.net.packet.PacketSummon;
 import pro.delfik.net.packet.PacketSSU;
 import pro.delfik.net.packet.PacketToggle;
+import pro.delfik.net.packet.PacketUpdateTop;
 import pro.delfik.net.packet.PacketUser;
 
 import java.lang.reflect.Constructor;
@@ -64,5 +65,6 @@ public abstract class Packet {
 		register(PacketSummon.class, "summon");
 		register(PacketSSU.class, "ssu");
 		register(PacketToggle.class, "toggle");
+		register(PacketUpdateTop.class, "updatetop");
 	}
 }

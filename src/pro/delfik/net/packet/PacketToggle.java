@@ -9,7 +9,6 @@ public class PacketToggle extends Packet {
 	public PacketToggle(String type) {
 		super("toggle");
 		String[] parameters = type.split("\\?");
-		if (parameters.length < 2) throw new IllegalArgumentException("Invalid packet format");
 		player = parameters[0];
 		setting = parameters[1];
 	}
@@ -29,5 +28,4 @@ public class PacketToggle extends Packet {
 		IPBOUND,
 		PMDISABLED
 	}
-	
 }

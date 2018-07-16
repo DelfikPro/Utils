@@ -9,7 +9,6 @@ public class PacketSummon extends Packet {
 	public PacketSummon(String type) {
 		super("summon");
 		String[] parameters = type.split("\\?");
-		if (parameters.length < 2) throw new IllegalArgumentException("Invalid packet format");
 		player = parameters[0];
 		server = parameters[1];
 	}
