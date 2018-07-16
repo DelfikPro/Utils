@@ -4,7 +4,6 @@ import pro.delfik.net.packet.PacketAuth;
 import pro.delfik.net.packet.PacketInit;
 import pro.delfik.net.packet.PacketPex;
 import pro.delfik.net.packet.PacketPunishment;
-import pro.delfik.net.packet.PacketReload;
 import pro.delfik.net.packet.PacketUser;
 
 import java.lang.reflect.Constructor;
@@ -59,6 +58,5 @@ public abstract class Packet {
 		register(PacketAuth.class, "auth");
 		register(PacketPex.class, "pex");
 		register(PacketPunishment.class, "punishment");
-		register(PacketReload.class, "reload");
 	}
 }
