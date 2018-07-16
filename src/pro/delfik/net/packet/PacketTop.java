@@ -28,7 +28,7 @@ public class PacketTop extends Packet{
 		return Converter.merge(getTop(), Top::toString, "\n");
 	}
 
-	public class Top{
+	public static class Top{
 		private final String nick;
 
 		private final int wins, games;
