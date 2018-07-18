@@ -14,7 +14,6 @@ public class CryptoUtils {
 	
 	public CryptoUtils(String key) {
 		this.key = new SecretKeySpec(key.getBytes(), algoritm);
-		System.out.println("Ключ - '" + key + "', длина ключа - " + key.length());
 	}
 	
 	public String encrypt(String data) {

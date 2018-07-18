@@ -161,7 +161,6 @@ public class Converter {
 	}
 	
 	public static List<String> deserializeList(String str, String separator) {
-		if(str == null) return new ArrayList<>();
-		return Arrays.asList(str.split(separator));
+		return str == null ? new ArrayList<>() : Arrays.asList(str.split(separator));
 	}
 }
