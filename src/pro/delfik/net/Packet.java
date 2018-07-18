@@ -10,6 +10,7 @@ import pro.delfik.net.packet.PacketToggle;
 import pro.delfik.net.packet.PacketTop;
 import pro.delfik.net.packet.PacketUpdateTop;
 import pro.delfik.net.packet.PacketUser;
+import pro.delfik.net.packet.PacketWrite;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -68,5 +69,6 @@ public abstract class Packet {
 		register(PacketToggle.class, "toggle");
 		register(PacketUpdateTop.class, "updatetop");
 		register(PacketTop.class, "top");
+		register(PacketWrite.class, "write");
 	}
 }
