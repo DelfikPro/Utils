@@ -39,8 +39,9 @@ public class P2P implements Runnable{
 				if(crypt != null)read = crypt.decrypt(read);
 				listener.update(Packet.getPacket(read));
 			}
-		}catch (IOException ex){}
-		catch (Throwable ex){}
+		}catch (Throwable ex){
+			ex.printStackTrace();
+		}
 		close();
 		listener.off();
 	}
@@ -50,7 +51,9 @@ public class P2P implements Runnable{
 			writer.write(crypt.encrypt(packet.toString()));
 			writer.newLine();
 			writer.flush();
-		}catch (IOException ex){}
+		}catch (IOException ex){
+			ex.printStackTrace();
+		}
 	}
 
 	public void close(){
