@@ -22,6 +22,14 @@ public class PacketWrite extends Packet{
 		this.file = file;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getFile() {
+		return file;
+	}
+
 	@Override
 	protected String encode() {
 		return name + "?" + Base64.getEncoder().encodeToString(file.getBytes());
