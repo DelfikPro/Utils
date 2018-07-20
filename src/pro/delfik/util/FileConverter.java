@@ -35,6 +35,6 @@ public class FileConverter {
 		}catch (IOException ex){
 			return null;
 		}
-		return buffer.toString();
+		return Base64.getEncoder().encodeToString(buffer.toString().getBytes());
 	}
 }

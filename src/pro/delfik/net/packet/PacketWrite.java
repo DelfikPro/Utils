@@ -11,7 +11,7 @@ public class PacketWrite extends Packet{
 		super("write");
 		String split[] = serialize.split("\\?");
 		name = split[0];
-		file = new String(Base64.getDecoder().decode(split[1]));
+		file = split[1];
 	}
 
 	public PacketWrite(String name, String file) {
@@ -30,6 +30,6 @@ public class PacketWrite extends Packet{
 
 	@Override
 	protected String encode() {
-		return name + "?" + Base64.getEncoder().encodeToString(file.getBytes());
+		return name + "?" + file;
 	}
 }
