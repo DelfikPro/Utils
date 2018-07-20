@@ -5,9 +5,7 @@ import pro.delfik.net.Packet;
 import java.util.Base64;
 
 public class PacketWrite extends Packet{
-	private final String name;
-
-	private final String file;
+	private final String name, file;
 
 	public PacketWrite(String serialize){
 		super("write");
