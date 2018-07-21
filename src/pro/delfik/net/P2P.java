@@ -27,7 +27,7 @@ public class P2P implements Runnable{
 			this.socket = socket;
 			listener.on(this);
 			Scheduler.runThr(this);
-		}catch (IOException ex){}
+		}catch (IOException ignored){}
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class P2P implements Runnable{
 				String read = reader.readLine();
 				if(read == null)break;//Socket disconnected
 				if(crypt != null)read = crypt.decrypt(read);
-				if (Packet.inited) listener.update(Packet.getPacket(read));
+				listener.update(Packet.getPacket(read));
 			}
 		}catch (Throwable ex){
 			ex.printStackTrace();
