@@ -5,9 +5,8 @@ import pro.delfik.net.packet.PacketInit;
 import pro.delfik.net.packet.PacketPex;
 import pro.delfik.net.packet.PacketPunishment;
 import pro.delfik.net.packet.PacketRead;
-import pro.delfik.net.packet.PacketSummon;
 import pro.delfik.net.packet.PacketSSU;
-import pro.delfik.net.packet.PacketToggle;
+import pro.delfik.net.packet.PacketSummon;
 import pro.delfik.net.packet.PacketTop;
 import pro.delfik.net.packet.PacketUpdateTop;
 import pro.delfik.net.packet.PacketUser;
@@ -68,7 +67,6 @@ public abstract class Packet {
 		register(PacketPunishment.class, "punishment");
 		register(PacketSummon.class, "summon");
 		register(PacketSSU.class, "ssu");
-		register(PacketToggle.class, "toggle");
 		register(PacketUpdateTop.class, "updatetop");
 		register(PacketTop.class, "top");
 		register(PacketWrite.class, "write");
