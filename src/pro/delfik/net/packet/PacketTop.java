@@ -10,8 +10,11 @@ public class PacketTop extends Packet{
 		super("top");
 		String split[] = serialize.split("\n");
 		top = new Top[split.length];
-		for(int i = 0; i < split.length; i++)
+		for(int i = 0; i < split.length; i++){
+			if(split[i].equals("null"))
+				top[i] = null;
 			top[i] = new Top(split[i]);
+		}
 	}
 
 	public PacketTop(Top[] top) {
