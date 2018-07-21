@@ -14,8 +14,9 @@ public class FileConverter {
 	public static void write(File file, String str){
 		try{
 			str = new String(Base64.getDecoder().decode(str));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			writer.write(str);
+			BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(file));
+			for(char c : str.toCharArray())
+				writer.write(c);
 			writer.flush();
 			writer.close();
 		}catch (IOException ex){
