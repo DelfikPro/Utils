@@ -37,7 +37,7 @@ public class P2P implements Runnable{
 				String read = reader.readLine();
 				if(read == null)break;//Socket disconnected
 				if(crypt != null)read = crypt.decrypt(read);
-				listener.update(Packet.getPacket(read));
+				if (Packet.inited) listener.update(Packet.getPacket(read));
 			}
 		}catch (Throwable ex){
 			ex.printStackTrace();

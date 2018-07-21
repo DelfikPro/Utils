@@ -20,6 +20,7 @@ import java.util.Map;
 
 public abstract class Packet {
 	private static final Map<String, Constructor<? extends Packet>> packets = new HashMap<>();
+	public static boolean inited = false;
 	private final String type;
 
 	public Packet(String type){
@@ -39,6 +40,8 @@ public abstract class Packet {
 	}
 
 	public static Packet getPacket(String str){
+		System.out.println(str);
+		if (!inited) return null;
 		String split[] = str.split((char)12 + "");
 		Constructor<? extends Packet> constructor = packets.get(split[0]);
 		if(constructor == null)throw new IllegalArgumentException("Packet not registered");
@@ -72,5 +75,6 @@ public abstract class Packet {
 		register(PacketTop.class, "top");
 		register(PacketWrite.class, "write");
 		register(PacketRead.class, "read");
+		inited = true;
 	}
 }
