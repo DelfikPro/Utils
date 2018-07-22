@@ -43,13 +43,12 @@ public class ArrayUtils {
 		return i != 1;
 	}
 	
-	public static int indexOf(String[] array, String indexOf) {
+	public static int indexOf(Object[] array, String indexOf) {
 		for(int i = 0; i < array.length; ++i) {
-			String object = array[i];
-			if (object != null && object.equalsIgnoreCase(indexOf))
+			Object object = array[i];
+			if (object != null && object.toString().equalsIgnoreCase(indexOf))
 				return i;
 		}
-		
 		return -1;
 	}
 	
