@@ -98,7 +98,8 @@ public class Converter {
 		StringBuilder result = new StringBuilder();
 		ArrayIterator<T> i = new ArrayIterator<>(array);
 		while (i.hasNext()) {
-			result.append(converter.apply(i.next()));
+			T t = i.next();
+			result.append(t == null ? "null" : converter.apply(t));
 			if (i.hasNext()) result.append(separator);
 		}
 		return result.toString();

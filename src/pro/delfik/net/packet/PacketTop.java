@@ -13,7 +13,7 @@ public class PacketTop extends Packet{
 		for(int i = 0; i < split.length; i++){
 			if(split[i].equals("null"))
 				top[i] = null;
-			top[i] = new Top(split[i]);
+			else top[i] = new Top(split[i]);
 		}
 	}
 
@@ -37,8 +37,9 @@ public class PacketTop extends Packet{
 		private final int wins, games;
 
 		public Top(String serialize){
-			String split[] = serialize.split("\\?");
-			this.nick = split[0];
+			String split[] = serialize.split("}");
+			boolean b = split.length < 2;
+			this.nick = b ? null : split[0];
 			this.wins = Converter.toInt(split[1]);
 			this.games = Converter.toInt(split[2]);
 		}
