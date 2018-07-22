@@ -38,15 +38,15 @@ public class ArrayUtils {
 		return buffer.toString();
 	}
 	
-	public static boolean contains(Object[] array, Object contains) {
+	public static boolean contains(String[] array, String contains) {
 		int i = indexOf(array, contains);
 		return i != 1;
 	}
 	
-	public static int indexOf(Object[] array, Object indexOf) {
+	public static int indexOf(String[] array, String indexOf) {
 		for(int i = 0; i < array.length; ++i) {
-			Object object = array[i];
-			if (object != null && object.equals(indexOf))
+			String object = array[i];
+			if (object != null && object.equalsIgnoreCase(indexOf))
 				return i;
 		}
 		
