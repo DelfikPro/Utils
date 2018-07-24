@@ -1,18 +1,15 @@
 package pro.delfik.util;
 
 public enum ServerType {
-	UNKNOWN(""),
-	LOBBY("LOBBY"),
-	PVP("PVP"),
-	SF("SF");
+	UNKNOWN,
+	LOBBY,
+	PVP,
+	BW,
+	SF;
 
-	private final String prefix;
-
-	private ServerType(String prefix){
-		this.prefix = prefix;
-	}
-
-	public String getPrefix() {
-		return prefix;
+	public static ServerType getType(String line){
+		for(ServerType type : values())
+			if(line.startsWith(type.toString()))return type;
+		return UNKNOWN;
 	}
 }
