@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class P2P implements Runnable{
 
@@ -39,7 +40,10 @@ public class P2P implements Runnable{
 				if(crypt != null)read = crypt.decrypt(read);
 				listener.update(Packet.getPacket(read));
 			}
-		}catch (Throwable ex){
+		} catch (SocketException ex) {
+			System.out.println("Соединение с прокси разорвано.");
+		}
+		catch (Throwable ex){
 			ex.printStackTrace();
 		}
 		close();
