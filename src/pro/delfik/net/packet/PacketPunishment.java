@@ -63,6 +63,7 @@ public class PacketPunishment extends Packet{
 		BAN,
 		UNBAN,
 		MUTE,
-		UNMUTE
+		UNMUTE,
+		KICK
 	}
 }

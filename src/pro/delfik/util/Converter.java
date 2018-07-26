@@ -1,7 +1,6 @@
 package pro.delfik.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -71,13 +70,10 @@ public class Converter {
 	public static List<String> toList(String s, String magic) {
 		if (s != null && s.length() > 1) {
 			List<String> list = new ArrayList<>();
-			String[] var3 = s.split(magic);
-			int var4 = var3.length;
-			for (String s1 : var3) {
-				if (s1.length() > 1) {
-					list.add(s1);
-				}
-			}
+			String[] components = s.split(magic);
+			int size = components.length;
+			for (String string : components)
+				if (string.length() > 1) list.add(string);
 			return list;
 		} else {
 			return new ArrayList<>();
@@ -162,6 +158,6 @@ public class Converter {
 	}
 	
 	public static List<String> deserializeList(String str, String separator) {
-		return str == null ? new ArrayList<>() : Arrays.asList(str.split(separator));
+		return str == null ? new ArrayList<>() : toList(str, separator);
 	}
 }
