@@ -38,7 +38,6 @@ public abstract class Packet {
 	}
 
 	public static Packet getPacket(String str){
-		System.out.println(str);
 		String split[] = str.split((char)12 + "");
 		Constructor<? extends Packet> constructor = packets.get(split[0]);
 		if(constructor == null)throw new IllegalArgumentException("Packet not registered");
