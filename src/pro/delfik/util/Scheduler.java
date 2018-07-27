@@ -6,6 +6,7 @@ import java.util.List;
 public class Scheduler extends Thread{
 	private static List<Task> tasks = new ArrayList<>();
 	private int times = 0;
+	private volatile static boolean started = true;
 
 	public static void init(){
 		new Scheduler().start();
@@ -13,12 +14,16 @@ public class Scheduler extends Thread{
 
 	@Override
 	public void run() {
-		while (true){
+		while (started){
 			sleep(100);
-			if(++times == 11)times = 0;
+			if(++times == 11)times = 1;
 			for(Task task : tasks)
 				if(times % task.times == 0)task.run();
 		}
+	}
+
+	public static void kill(){
+		started = false;
 	}
 
 	public static void addTask(Task task){
