@@ -2,6 +2,7 @@ package pro.delfik.util;
 
 public enum ServerType {
 	UNKNOWN,
+	SPLEEF,
 	LOBBY,
 	TEST,
 	PVP,
