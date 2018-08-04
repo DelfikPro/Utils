@@ -1,6 +1,8 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.ByteUnzip;
+import pro.delfik.util.ByteZip;
 import pro.delfik.util.Converter;
 
 public class PacketUpdateTop extends Packet{
@@ -11,17 +13,14 @@ public class PacketUpdateTop extends Packet{
 
 	private final int beds, deaths;
 
-	public PacketUpdateTop(String serialize){
-		super("updatetop");
-		String split[] = serialize.split("\\?");
-		this.nick = split[0];
-		this.win = Converter.toBoolean(split[1]);
-		this.beds = Converter.toInt(split[2]);
-		this.deaths = Converter.toInt(split[3]);
+	public PacketUpdateTop(ByteUnzip unzip){
+		this.nick = unzip.getString();
+		this.win = unzip.getBoolean();
+		this.beds = unzip.getInt();
+		this.deaths = unzip.getInt();
 	}
 
 	public PacketUpdateTop(String nick, boolean win, int beds, int deaths) {
-		super("updatetop");
 		this.nick = nick;
 		this.win = win;
 		this.beds = beds;
@@ -45,7 +44,7 @@ public class PacketUpdateTop extends Packet{
 	}
 
 	@Override
-	protected String encode() {
-		return nick + "?" + win + "?" + beds + "?" + deaths;
+	protected ByteZip encode() {
+		return new ByteZip().add(nick).add(win).add(beds).add(deaths);
 	}
 }

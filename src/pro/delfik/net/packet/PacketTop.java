@@ -1,24 +1,29 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.ByteUnzip;
+import pro.delfik.util.ByteZip;
 import pro.delfik.util.Converter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PacketTop extends Packet{
 	private final Top top[];
 
-	public PacketTop(String serialize){
-		super("top");
-		String split[] = serialize.split("\n");
-		top = new Top[split.length];
-		for(int i = 0; i < split.length; i++){
-			if(split[i].equals("null"))
+	public PacketTop(ByteUnzip unzip){
+		List<String> list = new ArrayList<>();
+		while (unzip.next())
+			list.add(unzip.getString());
+		top = new Top[list.size()];
+		for(int i = 0; i < list.size(); i++){
+			if(list.get(i).equals("null"))
 				top[i] = null;
-			else top[i] = new Top(split[i]);
+			else top[i] = new Top(list.get(i));
 		}
 	}
 
 	public PacketTop(Top[] top) {
-		super("top");
 		this.top = top;
 	}
 
@@ -27,8 +32,11 @@ public class PacketTop extends Packet{
 	}
 
 	@Override
-	protected String encode() {
-		return Converter.merge(getTop(), Top::toString, "\n");
+	protected ByteZip encode() {
+		ByteZip zip = new ByteZip();
+		for(Top top : top)
+			zip.add(top == null ? "null" : top.toString());
+		return zip;
 	}
 
 	public static class Top{

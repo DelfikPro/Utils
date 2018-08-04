@@ -1,12 +1,17 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.ByteUnzip;
+import pro.delfik.util.ByteZip;
 
 public class PacketAuth extends Packet{
 	private final String nick;
 
+	public PacketAuth(ByteUnzip unzip){
+		nick = unzip.getString();
+	}
+
 	public PacketAuth(String nick){
-		super("auth");
 		this.nick = nick;
 	}
 
@@ -15,7 +20,7 @@ public class PacketAuth extends Packet{
 	}
 
 	@Override
-	protected String encode() {
-		return nick;
+	protected ByteZip encode() {
+		return new ByteZip().add(nick);
 	}
 }

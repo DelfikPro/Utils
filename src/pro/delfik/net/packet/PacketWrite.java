@@ -1,21 +1,20 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.ByteUnzip;
+import pro.delfik.util.ByteZip;
 
 import java.util.Base64;
 
 public class PacketWrite extends Packet{
 	private final String name, file;
 
-	public PacketWrite(String serialize){
-		super("write");
-		String split[] = serialize.split("\\?");
-		name = split[0];
-		file = split[1];
+	public PacketWrite(ByteUnzip unzip){
+		name = unzip.getString();
+		file = unzip.getString();
 	}
 
 	public PacketWrite(String name, String file) {
-		super("write");
 		this.name = name;
 		this.file = file;
 	}
@@ -29,7 +28,7 @@ public class PacketWrite extends Packet{
 	}
 
 	@Override
-	protected String encode() {
-		return name + "?" + file;
+	protected ByteZip encode() {
+		return new ByteZip().add(name).add(file);
 	}
 }

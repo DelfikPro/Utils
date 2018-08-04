@@ -1,19 +1,18 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.ByteUnzip;
+import pro.delfik.util.ByteZip;
 
 public class PacketRead extends Packet{
 	private final String read, write;
 
-	public PacketRead(String serialize) {
-		super("read");
-		String split[] = serialize.split("\\?");
-		read = split[0];
-		write = split[1];
+	public PacketRead(ByteUnzip unzip) {
+		read = unzip.getString();
+		write = unzip.getString();
 	}
 
 	public PacketRead(String read, String write) {
-		super("read");
 		this.read = read;
 		this.write = write;
 	}
@@ -27,7 +26,7 @@ public class PacketRead extends Packet{
 	}
 
 	@Override
-	protected String encode() {
-		return read + '?' + write;
+	protected ByteZip encode() {
+		return new ByteZip().add(read).add(write);
 	}
 }

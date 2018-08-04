@@ -15,7 +15,18 @@ public class CryptoUtils {
 	public CryptoUtils(String key) {
 		this.key = new SecretKeySpec(key.getBytes(), algoritm);
 	}
-	
+
+	public byte[] encrypt(byte data[]) {
+		try {
+			Cipher c = Cipher.getInstance(algoritm);
+			c.init(1, this.key);
+			return c.doFinal(data);
+		} catch (Exception var4) {
+			var4.printStackTrace();
+			return null;
+		}
+	}
+
 	public String encrypt(String data) {
 		try {
 			Cipher c = Cipher.getInstance(algoritm);
@@ -24,6 +35,17 @@ public class CryptoUtils {
 			return new String(Base64.getEncoder().encode(encVal));
 		} catch (Exception var4) {
 			var4.printStackTrace();
+			return null;
+		}
+	}
+
+	public byte[] decrypt(byte[] encryptedData) {
+		try {
+			Cipher c = Cipher.getInstance(algoritm);
+			c.init(2, this.key);
+			return c.doFinal(encryptedData);
+		} catch (Exception var5) {
+			var5.printStackTrace();
 			return null;
 		}
 	}

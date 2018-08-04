@@ -1,8 +1,11 @@
 package pro.delfik.net;
 
+import pro.delfik.util.ByteUnzip;
 import pro.delfik.util.CryptoUtils;
 import pro.delfik.util.Scheduler;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Base64;
 
 public class P2P implements Runnable{
 
@@ -36,9 +40,9 @@ public class P2P implements Runnable{
 		try{
 			while (true){
 				String read = reader.readLine();
-				if(read == null)break;//Socket disconnected
+				if(read == null)break;
 				if(crypt != null)read = crypt.decrypt(read);
-				listener.update(Packet.getPacket(read));
+				listener.update(Packet.getPacket(new ByteUnzip(read.getBytes())));
 			}
 		} catch (SocketException ex) {
 			System.out.println("Соединение с прокси разорвано.");
@@ -52,7 +56,8 @@ public class P2P implements Runnable{
 
 	public void send(Packet packet){
 		try{
-			writer.write(crypt.encrypt(packet.toString()));
+			byte[] write = crypt.encrypt(packet.zip().build());
+			writer.write(Base64.getEncoder().encodeToString(write));
 			writer.newLine();
 			writer.flush();
 		}catch (IOException ex){

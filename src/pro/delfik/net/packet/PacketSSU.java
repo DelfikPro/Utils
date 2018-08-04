@@ -1,6 +1,8 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.ByteUnzip;
+import pro.delfik.util.ByteZip;
 import pro.delfik.util.Converter;
 
 public class PacketSSU extends Packet{
@@ -8,15 +10,12 @@ public class PacketSSU extends Packet{
 	private final String server;
 	private final int online;
 
-	public PacketSSU(String serialize) {
-		super("ssu");
-		String split[] = serialize.split("\\?");
-		this.server = split[0];
-		this.online = Converter.toInt(split[1]);
+	public PacketSSU(ByteUnzip unzip) {
+		this.server = unzip.getString();
+		this.online = unzip.getInt();
 	}
 
 	public PacketSSU(String server, int online){
-		super("ssu");
 		this.server = server;
 		this.online = online;
 	}
@@ -30,7 +29,7 @@ public class PacketSSU extends Packet{
 	}
 
 	@Override
-	protected String encode() {
-		return server + "?" + online;
+	protected ByteZip encode() {
+		return new ByteZip().add(server).add(online);
 	}
 }

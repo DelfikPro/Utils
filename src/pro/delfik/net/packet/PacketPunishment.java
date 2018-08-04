@@ -1,6 +1,8 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.ByteUnzip;
+import pro.delfik.util.ByteZip;
 import pro.delfik.util.Converter;
 
 public class PacketPunishment extends Packet{
@@ -11,18 +13,15 @@ public class PacketPunishment extends Packet{
 
 	private final Punishment punishment;
 
-	public PacketPunishment(String serialize){
-		super("punishment");
-		String split[] = serialize.split("\\?");
-		this.nick = split[0];
-		this.punishment = Punishment.valueOf(split[1]);
-		this.moder = split[2];
-		this.time = Converter.toInt(split[3]);
-		this.reason = split[4];
+	public PacketPunishment(ByteUnzip unzip){
+		this.nick = unzip.getString();
+		this.punishment = Punishment.valueOf(unzip.getString());
+		this.moder = unzip.getString();
+		this.time = unzip.getInt();
+		this.reason = unzip.getString();
 	}
 
 	public PacketPunishment(String nick, Punishment punishment, String moder, int time, String reason){
-		super("punishment");
 		this.nick = nick;
 		this.punishment = punishment;
 		this.moder = moder;
@@ -55,8 +54,8 @@ public class PacketPunishment extends Packet{
 	}
 
 	@Override
-	protected String encode() {
-		return nick + "?" + punishment + "?" + moder + "?" + time + "?" + reason;
+	protected ByteZip encode() {
+		return new ByteZip().add(nick).add(punishment + "").add(moder).add(time).add(reason);
 	}
 
 	public enum Punishment{

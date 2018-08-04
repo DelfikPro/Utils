@@ -1,6 +1,8 @@
 package pro.delfik.net.packet;
 
 import pro.delfik.net.Packet;
+import pro.delfik.util.ByteUnzip;
+import pro.delfik.util.ByteZip;
 import pro.delfik.util.Converter;
 import pro.delfik.util.Rank;
 
@@ -13,18 +15,15 @@ public class PacketUser extends Packet{
 
 	private final boolean authorized;
 
-	public PacketUser(String serialize){
-		super("user");
-		String split[] = serialize.split("\\?");
-		this.nick = split[0].substring(1);
-		this.rank = Rank.decode(serialize);
-		this.authorized = Converter.toBoolean(split[1]);
-		this.online = Converter.toLong(split[2], 0);
-		this.money = Converter.toInt(split[3], 0);
+	public PacketUser(ByteUnzip unzip){
+		this.nick = unzip.getString();
+		this.rank = Rank.decode(unzip.getString());
+		this.authorized = unzip.getBoolean();
+		this.online = unzip.getLong();
+		this.money = 0;
 	}
 
 	public PacketUser(String nick, Rank rank, boolean authorized, long online, int money) {
-		super("user");
 		this.nick = nick;
 		this.rank = rank;
 		this.authorized = authorized;
@@ -35,21 +34,25 @@ public class PacketUser extends Packet{
 	public String getNick() {
 		return nick;
 	}
+
 	public Rank getRank() {
 		return rank;
 	}
+
 	public boolean isAuthorized() {
 		return authorized;
 	}
+
 	public long getOnline() {
 		return online;
 	}
+
 	public int getMoney() {
 		return money;
 	}
 	
 	@Override
-	protected String encode() {
-		return rank + nick + "?" + authorized + "?" + online + "?" + money;
+	protected ByteZip encode() {
+		return new ByteZip().add(nick).add(rank + "").add(authorized).add(online).add(money);
 	}
 }
