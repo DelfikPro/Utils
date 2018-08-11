@@ -1,5 +1,6 @@
 package pro.delfik.util;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 public class ByteUnzip {
@@ -19,7 +20,7 @@ public class ByteUnzip {
 	}
 
 	public String getString(){
-		return new String(getBytes());
+		return new String(getBytes(), Charset.forName("UTF-8"));
 	}
 
 	public long getLong(){

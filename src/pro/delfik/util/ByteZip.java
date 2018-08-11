@@ -1,5 +1,6 @@
 package pro.delfik.util;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +33,11 @@ public class ByteZip {
 	}
 
 	public ByteZip add(String str){
-		Byte array[] = new Byte[str.length()];
-		for(int i = 0; i < array.length; i++)
-			array[i] = (byte)str.charAt(i);
-		add(array);
+		byte result[] = str.getBytes(Charset.forName("UTF-8"));
+		Byte b[] = new Byte[result.length];
+		for(int i = 0; i < result.length; i++)
+			b[i] = result[i];
+		add(b);
 		return this;
 	}
 
