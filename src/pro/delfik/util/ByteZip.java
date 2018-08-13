@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ByteZip {
-	private final List<Byte[]> bytes = new ArrayList<>();
-	private Byte[] start = new Byte[0];
+	private final List<byte[]> bytes = new ArrayList<>();
 
 	public byte[] build(){
 		byte result[] = new byte[size()];
 		int i = 0;
-		for(Byte[] bytes : bytes){
+		for(byte[] bytes : bytes){
 			if(bytes.length > 126){
 				result[i++] = 127;
 				result[i++] = (byte)(bytes.length >> 24);
@@ -32,18 +31,22 @@ public class ByteZip {
 		return this;
 	}
 
+	public ByteZip addASCII(String str){
+		byte result[] = new byte[str.length()];
+		for(int i = 0; i < str.length(); i++)
+			result[i] = (byte)str.charAt(i);
+		add(result);
+		return this;
+	}
+
 	public ByteZip add(String str){
-		byte result[] = str.getBytes(Charset.forName("UTF-8"));
-		Byte b[] = new Byte[result.length];
-		for(int i = 0; i < result.length; i++)
-			b[i] = result[i];
-		add(b);
+		add(str.getBytes(Charset.forName("UTF-8")));
 		return this;
 	}
 
 	public ByteZip add(long l){
 		if(((int)l) == l)add((byte)l);
-		else add(new Byte[]{
+		else add(new byte[]{
 				(byte)(l >> 56),
 				(byte)(l >> 48),
 				(byte)(l >> 40),
@@ -58,7 +61,7 @@ public class ByteZip {
 
 	public ByteZip add(int i){
 		if(((byte)i) == i)add((byte)i);
-		else add(new Byte[]{
+		else add(new byte[]{
 				(byte)(i >> 24),
 				(byte)(i >> 16),
 				(byte)(i >> 8),
@@ -73,23 +76,23 @@ public class ByteZip {
 	}
 
 	public ByteZip add(byte b){
-		add(new Byte[]{b});
+		add(new byte[]{b});
 		return this;
 	}
 
-	public ByteZip add(Byte b[]){
+	public ByteZip add(byte b[]){
 		bytes.add(b);
 		return this;
 	}
 
-	public ByteZip addStart(Byte b[]){
+	public ByteZip addStart(byte b[]){
 		bytes.add(0, b);
 		return this;
 	}
 
 	public int size(){
 		int size = bytes.size();
-		for(Byte bytes[] : bytes){
+		for(byte bytes[] : bytes){
 			size = size + bytes.length;
 			if(bytes.length > 126)
 				size = size + 4;

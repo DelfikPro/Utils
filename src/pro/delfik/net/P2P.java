@@ -39,10 +39,10 @@ public class P2P implements Runnable{
 	public void run() {
 		try{
 			while (true){
-				String read = reader.readLine();
+				byte[] read = Base64.getDecoder().decode(reader.readLine());
 				if(read == null)break;
 				if(crypt != null)read = crypt.decrypt(read);
-				listener.update(Packet.getPacket(new ByteUnzip(read.getBytes())));
+				listener.update(Packet.getPacket(new ByteUnzip(read)));
 			}
 		} catch (SocketException ex) {
 			System.out.println("Соединение с прокси разорвано.");
@@ -56,7 +56,8 @@ public class P2P implements Runnable{
 
 	public void send(Packet packet){
 		try{
-			byte[] write = crypt.encrypt(packet.zip().build());
+			byte write[] = packet.zip().build();
+			if(crypt != null)write = crypt.encrypt(write);
 			writer.write(Base64.getEncoder().encodeToString(write));
 			writer.newLine();
 			writer.flush();

@@ -11,12 +11,11 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class FileConverter {
-	public static void write(File file, String str){
+	public static void write(File file, byte array[]){
 		try{
-			str = new String(Base64.getDecoder().decode(str));
 			BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(file));
-			for(char c : str.toCharArray())
-				writer.write(c);
+			for(byte b : array)
+				writer.write(b);
 			writer.flush();
 			writer.close();
 		}catch (IOException ex){
@@ -24,19 +23,15 @@ public class FileConverter {
 		}
 	}
 
-	public static String read(File file){
-		StringBuilder buffer = new StringBuilder();
+	public static byte[] read(File file){
+		byte read[] = new byte[(int)file.length()];
 		try{
 			BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
-			while (true){
-				int i = in.read();
-				if(i == -1)break;
-				buffer.append((char)i);
-			}
+			in.read(read);
 			in.close();
 		}catch (IOException ex){
 			return null;
 		}
-		return Base64.getEncoder().encodeToString(buffer.toString().getBytes());
+		return read;
 	}
 }

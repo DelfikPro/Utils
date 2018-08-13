@@ -57,4 +57,18 @@ public class Scheduler extends Thread{
 			this.times = times;
 		}
 	}
+
+	public static class RunTask extends Task{
+		private final Runnable runnable;
+
+		public RunTask(int times, Runnable runnable){
+			super(times);
+			this.runnable = runnable;
+		}
+
+		@Override
+		public void run() {
+			runnable.run();
+		}
+	}
 }

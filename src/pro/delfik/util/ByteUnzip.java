@@ -1,6 +1,7 @@
 package pro.delfik.util;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ByteUnzip {
@@ -17,6 +18,10 @@ public class ByteUnzip {
 
 	public boolean getBoolean(){
 		return getBytes()[0] == 0b1;
+	}
+
+	public String getASCII(){
+		return new String(getBytes());
 	}
 
 	public String getString(){
@@ -58,7 +63,7 @@ public class ByteUnzip {
 
 	public byte[] getBytes(int size){
 		byte bytes[] = new byte[size];
-		for(int write = 0; write < bytes.length; write++, i++)
+		for (int write = 0; write < bytes.length; write++, i++)
 			bytes[write] = array[i];
 		return bytes;
 	}

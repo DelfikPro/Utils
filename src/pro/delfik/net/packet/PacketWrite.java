@@ -7,14 +7,15 @@ import pro.delfik.util.ByteZip;
 import java.util.Base64;
 
 public class PacketWrite extends Packet{
-	private final String name, file;
+	private final String name;
+	private final byte file[];
 
 	public PacketWrite(ByteUnzip unzip){
 		name = unzip.getString();
-		file = unzip.getString();
+		file = unzip.getBytes();
 	}
 
-	public PacketWrite(String name, String file) {
+	public PacketWrite(String name, byte file[]) {
 		this.name = name;
 		this.file = file;
 	}
@@ -23,7 +24,7 @@ public class PacketWrite extends Packet{
 		return name;
 	}
 
-	public String getFile() {
+	public byte[] getFile() {
 		return file;
 	}
 

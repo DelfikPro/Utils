@@ -34,15 +34,16 @@ public abstract class Packet implements Byteable{
 	@Override
 	public ByteZip zip() {
 		String type = getType();
-		Byte[] b = new Byte[type.length()];
+		byte[] b = new byte[type.length()];
 		for(int i = 0; i < b.length; i++)
 			b[i] = (byte)type.charAt(i);
 		return encode().addStart(b);
 	}
 
 	public static Packet getPacket(ByteUnzip unzip){
-		Class<? extends Packet> packet = packets.get(unzip.getString());
-		if(packet == null)throw new IllegalArgumentException("Packet not registered");
+		String name = unzip.getString();
+		Class<? extends Packet> packet = packets.get(name);
+		if(packet == null)throw new IllegalArgumentException("Packet not registered " + name);
 		return Byteable.decode(packet, unzip);
 	}
 
