@@ -160,4 +160,10 @@ public class Converter {
 	public static List<String> deserializeList(String str, String separator) {
 		return str == null ? new ArrayList<>() : toList(str, separator);
 	}
+
+	public static <From, To> List<To> transform(List<From> from, Function<From, To> converter) {
+		List<To> result = new ArrayList<>();
+		for (From f : from) result.add(converter.apply(f));
+		return result;
+	}
 }
