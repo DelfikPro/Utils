@@ -3,6 +3,7 @@ package pro.delfik.net;
 import pro.delfik.net.packet.PacketAuth;
 import pro.delfik.net.packet.PacketGC;
 import pro.delfik.net.packet.PacketInit;
+import pro.delfik.net.packet.PacketOutAuth;
 import pro.delfik.net.packet.PacketPex;
 import pro.delfik.net.packet.PacketPunishment;
 import pro.delfik.net.packet.PacketRead;
@@ -64,5 +65,6 @@ public abstract class Packet implements Byteable{
 		register(PacketWrite.class);
 		register(PacketRead.class);
 		register(PacketGC.class);
+		register(PacketOutAuth.class);
 	}
 }
