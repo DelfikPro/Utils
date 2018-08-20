@@ -58,4 +58,8 @@ public enum Rank {
 	public String represent() {
 		return nameColor + name;
 	}
+
+	public byte getByte() {
+		return (byte) name().charAt(0);
+	}
 }

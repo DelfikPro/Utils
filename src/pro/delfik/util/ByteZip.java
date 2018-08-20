@@ -27,7 +27,7 @@ public class ByteZip {
 	}
 
 	public ByteZip add(List<String> list){
-		add(Converter.merge(list, str -> {return str;},(char)0x0b + ""));
+		add(Converter.merge(list, str -> str,(char)0x0b + ""));
 		return this;
 	}
 

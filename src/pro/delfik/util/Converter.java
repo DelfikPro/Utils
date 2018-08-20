@@ -81,16 +81,19 @@ public class Converter {
 	}
 	
 	public static <T> String merge(Collection<T> collection, Function<T, String> converter, String separator) {
+		if (collection == null) return "";
 		StringBuilder result = new StringBuilder();
 		Iterator<T> i = collection.iterator();
 		while (i.hasNext()) {
-			result.append(converter.apply(i.next()));
+			T t = i.next();
+			result.append(t == null ? "null" : converter.apply(t));
 			if (i.hasNext()) result.append(separator);
 		}
 		return result.toString();
 	}
 	
 	public static <T> String merge(T[] array, Function<T, String> converter, String separator) {
+		if (array == null) return "";
 		StringBuilder result = new StringBuilder();
 		ArrayIterator<T> i = new ArrayIterator<>(array);
 		while (i.hasNext()) {
