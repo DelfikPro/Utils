@@ -169,4 +169,8 @@ public class Converter {
 		for (From f : from) result.add(converter.apply(f));
 		return result;
 	}
+
+	public static String representBoolean(boolean b) {
+		return b ? "§aвключен" : "§cвыключен";
+	}
 }
