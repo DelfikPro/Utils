@@ -1,6 +1,8 @@
 package implario.net.packet;
 
 import implario.net.Packet;
+import implario.util.ByteUnzip;
+import implario.util.ByteZip;
 import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 import implario.util.Rank;
@@ -14,8 +16,12 @@ public class PacketUser extends Packet {
 
 	private boolean authorized;
 
-	public PacketUser(){
-		this.money = 0;
+	public PacketUser(ByteUnzip unzip){
+		nick = unzip.getString();
+		rank = Rank.decode((char)unzip.getByte() + "");
+		authorized = unzip.getBoolean();
+		online = unzip.getLong();
+		money = unzip.getInt();
 	}
 
 	public PacketUser(String nick, Rank rank, boolean authorized, long online, int money) {
@@ -44,5 +50,10 @@ public class PacketUser extends Packet {
 
 	public int getMoney() {
 		return money;
+	}
+
+	@Override
+	protected ByteZip encode() {
+		return new ByteZip().add(nick).add(rank.getByte()).add(authorized).add(online).add(money);
 	}
 }
