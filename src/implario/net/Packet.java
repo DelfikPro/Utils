@@ -28,7 +28,7 @@ public abstract class Packet {
 	private static final Map<String, Class<? extends Packet>> packets = new HashMap<>();
 
 	public String getType() {
-		return getClass().getName().substring(6);
+		return getClass().getSimpleName();
 	}
 
 	protected ByteZip encode(){
@@ -42,26 +42,31 @@ public abstract class Packet {
 			b[i] = (byte)type.charAt(i);
 		ByteZip result = new ByteZip();
 		result.add(type);
+		System.out.println(type);
 		ByteZip zip = encode();
 		if(zip != null){
 			result.add(zip.build());
 			return result.build();
 		}
-		return result.add(Byteable.toBytes(this)).build();
+		result.add(Coder.toBytes(this));
+		ByteUnzip unzip = new ByteUnzip(result.build());
+		System.out.println(unzip.getString());
+		System.out.println(unzip.getString());
+		return result.build();
 	}
 
 	public static Packet getPacket(byte array[]) {
 		ByteUnzip unzip = new ByteUnzip(array);
 		String name = unzip.getString();
-		System.out.println("Имя пришедшего пакета - " + name);
-		System.out.println(Coder.toString(array));
+		System.out.println("Имя пришедшего пакета - " + name + " 123");
+		System.out.println("123" + Coder.toString(array) + " 123");
 		Class<? extends Packet> packet = packets.get(name);
 		if(packet == null)throw new IllegalArgumentException("Packet not registered " + name);
 		return Byteable.toByteable(array, packet);
 	}
 
 	public static void register(Class<? extends Packet> clazz) {
-		packets.put(clazz.getName().substring(6), clazz);
+		packets.put(clazz.getSimpleName(), clazz);
 	}
 
 	public static void init(){

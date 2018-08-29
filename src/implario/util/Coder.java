@@ -1,5 +1,7 @@
 package implario.util;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,7 +132,7 @@ public class Coder {
     }
 
     public static short toShort(byte array[]){
-        if(array.length == 1)return toByte(array);
+        if(array.length != 2)return toByte(array);
         return (short)(array[0] << 8 & 0xff00 |
                 array[1] & 0xff);
     }
@@ -145,8 +147,57 @@ public class Coder {
     }
 
     public static byte toByte(byte array[]){
-        if(array.length == 0)return 0;
+        if(array.length != 1)return 0;
         return (byte)(array[0] & 0xff);
+    }
+
+    public static <T> T toObject(byte array[], Class<T> clazz){
+        System.out.println(clazz);
+        System.out.println(isArray(clazz));
+        if(isPrimitive(clazz))return (T)toPrimitive(clazz, array);
+        if(isEnum(clazz))return (T)toEnum(clazz, array);
+        if(isArray(clazz))return (T)toArray(clazz, array);
+        ByteUnzip unzip = new ByteUnzip(array);
+        T obj = Reflect.create(Reflect.getConstructor(clazz));
+        for(Field field : clazz.getDeclaredFields()){
+            if(!Reflect.isEditable(field))continue;
+            if(!field.isAccessible())field.setAccessible(true);
+            Class klass = field.getType();
+            byte write[] = unzip.getBytes();
+            Reflect.setToField(field, obj, toObject(write, klass));
+        }
+        return obj;
+    }
+
+    public static byte[] toBytes(Object invoke){
+        Class clazz = invoke.getClass();
+        if(clazz == String.class) return toBytes(invoke.toString());
+        if(clazz == boolean.class) return toBytes((boolean)invoke);
+        if(clazz == long.class) return toBytes((long)invoke);
+        if(clazz == int.class) return toBytes((int)invoke);
+        if(clazz == short.class) return toBytes((short)invoke);
+        if(clazz == byte.class) return toBytes((byte)invoke);
+        if(clazz == byte[].class) return (byte[])invoke;
+        if(isArray(clazz))return toBytes((Object[])invoke);
+        if(isEnum(clazz))return Coder.toBytes(Reflect.getEnumName(invoke));
+        ByteZip zip = new ByteZip();
+        for(Field field : clazz.getDeclaredFields()){
+            if(!Reflect.isEditable(field))continue;
+            if(!field.isAccessible())field.setAccessible(true);
+            Object obj = Reflect.getFromField(field, invoke);
+            if(obj == null)obj = "null";
+            Object primitive = Reflect.getPrimitive(field, invoke);
+            zip.add(Coder.toBytes(primitive == null ? obj : primitive));
+        }
+        return zip.build();
+    }
+
+    public static byte[] toBytes(Object invoke[]){
+        ByteZip zip = new ByteZip();
+        zip.add(invoke.length);
+        for(Object object : invoke)
+            zip.add(toBytes(object));
+        return zip.build();
     }
 
     public static byte[] toBytes(String line){
@@ -191,29 +242,6 @@ public class Coder {
 
     public static byte[] toBytes(byte b){
         return new byte[]{b};
-    }
-
-    public static byte[] toBytes(Object object){
-        Class clazz = object.getClass();
-        if(clazz == String.class) return Coder.toBytes(object.toString());
-        if(clazz == boolean.class) return Coder.toBytes((boolean)object);
-        if(clazz == long.class) return Coder.toBytes((long)object);
-        if(clazz == int.class) return Coder.toBytes((int)object);
-        if(clazz == short.class) return Coder.toBytes((short)object);
-        if(clazz == byte.class) return Coder.toBytes((byte)object);
-        if(clazz == byte[].class) return (byte[])object;
-        return Byteable.toBytes(object);
-    }
-
-    public static Object getPrimitiveObject(Class clazz, byte array[]) {
-        if(clazz == String.class) return Coder.toString(array);
-        if(clazz == boolean.class) return Coder.toBoolean(array);
-        if(clazz == long.class) return Coder.toLong(array);
-        if(clazz == int.class) return Coder.toInt(array);
-        if(clazz == short.class) return Coder.toShort(array);
-        if(clazz == byte.class) return Coder.toByte(array);
-        if(clazz == byte[].class) return array;
-        return null;
     }
 
     public static byte[] addBytes(byte array[], byte add[], int start, byte result[]){
@@ -328,14 +356,52 @@ public class Coder {
         return new String(result);
     }
 
-    public static String toUpperRU(String line){
+    public static String toUpperRU(String line) {
         char result[] = new char[line.length()];
         char chars[] = line.toCharArray();
-        for(int i = 0; i < chars.length; i++){
+        for (int i = 0; i < chars.length; i++){
             char c = chars[i];
-            if(c > 1039 && c < 1072) c = (char)(c - 32);
+            if(c > 1039 && c < 1072) c = (char) (c - 32);
             result[i] = c;
         }
         return new String(result);
+    }
+
+    public static boolean isArray(Class clazz){
+        return clazz.isArray();
+    }
+
+    public static Object[] toArray(Class clazz, byte array[]){
+        ByteUnzip unzip = new ByteUnzip(array);
+        Object result[] = (Object[]) Array.newInstance(clazz, unzip.getInt());
+        for(int i = 0; i < result.length; i++)
+            result[i] = toObject(unzip.getBytes(), clazz);
+        return result;
+    }
+
+    public static boolean isEnum(Class clazz){
+        return clazz.isEnum();
+    }
+
+    public static Object toEnum(Class clazz, byte array[]){
+        String name = toString(array);
+        for(Object object : clazz.getEnumConstants())
+            if(Reflect.getEnumName(object).equals(name))return object;
+        return null;
+    }
+
+    public static boolean isPrimitive(Class clazz){
+        return clazz.isPrimitive() || clazz == String.class || clazz == byte[].class;
+    }
+
+    public static Object toPrimitive(Class clazz, byte array[]) {
+        if(clazz == String.class) return Coder.toString(array);
+        if(clazz == boolean.class) return Coder.toBoolean(array);
+        if(clazz == long.class) return Coder.toLong(array);
+        if(clazz == int.class) return Coder.toInt(array);
+        if(clazz == short.class) return Coder.toShort(array);
+        if(clazz == byte.class) return Coder.toByte(array);
+        if(clazz == byte[].class) return array;
+        return null;
     }
 }
