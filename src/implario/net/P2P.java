@@ -1,6 +1,5 @@
 package implario.net;
 
-import implario.util.ManualByteUnzip;
 import implario.util.CryptoUtils;
 import implario.util.Scheduler;
 
@@ -40,7 +39,7 @@ public class P2P implements Runnable{
 				byte[] read = Base64.getDecoder().decode(reader.readLine());
 				if(read == null)break;
 				if(crypt != null)read = crypt.decrypt(read);
-				listener.update(Packet.getPacket(new ManualByteUnzip(read)));
+				listener.update(Packet.getPacket(read));
 			}
 		} catch (SocketException ex) {
 			System.out.println("Соединение с прокси разорвано.");
@@ -65,8 +64,6 @@ public class P2P implements Runnable{
 	}
 
 	public void close(){
-		try{
-			socket.close();
-		}catch (IOException ex){}
+		try {socket.close();} catch (IOException ignored) {}
 	}
 }
