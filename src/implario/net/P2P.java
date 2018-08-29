@@ -1,5 +1,6 @@
 package implario.net;
 
+import implario.util.Coder;
 import implario.util.CryptoUtils;
 import implario.util.Scheduler;
 
@@ -54,6 +55,7 @@ public class P2P implements Runnable{
 	public void send(Packet packet){
 		try{
 			byte write[] = packet.zip();
+			System.out.println(Coder.toString(write));
 			if(crypt != null)write = crypt.encrypt(write);
 			writer.write(Base64.getEncoder().encodeToString(write));
 			writer.newLine();
