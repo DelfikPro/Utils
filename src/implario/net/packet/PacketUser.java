@@ -11,17 +11,11 @@ public class PacketUser extends Packet {
 	private String nick;
 	private long online;
 	private int money;
-	
 	private Rank rank;
 
 	private boolean authorized;
 
-	public PacketUser(ByteUnzip unzip){
-		nick = unzip.getString();
-		rank = Rank.decode((char)unzip.getByte() + "");
-		authorized = unzip.getBoolean();
-		online = unzip.getLong();
-		money = unzip.getInt();
+	public PacketUser(){
 	}
 
 	public PacketUser(String nick, Rank rank, boolean authorized, long online, int money) {
@@ -50,10 +44,5 @@ public class PacketUser extends Packet {
 
 	public int getMoney() {
 		return money;
-	}
-
-	@Override
-	protected ByteZip encode() {
-		return new ByteZip().add(nick).add(rank.getByte()).add(authorized).add(online).add(money);
 	}
 }

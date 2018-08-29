@@ -43,10 +43,7 @@ public abstract class Packet {
 		ByteZip result = new ByteZip();
 		result.add(type);
 		ByteZip zip = encode();
-		if(zip != null){
-			result.add(zip.build());
-			return result.build();
-		}
+		if(zip != null) return result.add(zip.build()).build();
 		result.add(Coder.toBytes(this));
 		return result.build();
 	}

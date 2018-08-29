@@ -170,11 +170,11 @@ public class Coder {
     public static byte[] toBytes(Object invoke){
         Class clazz = invoke.getClass();
         if(clazz == String.class) return toBytes(invoke.toString());
-        if(clazz == boolean.class) return toBytes((boolean)invoke);
-        if(clazz == long.class) return toBytes((long)invoke);
-        if(clazz == int.class) return toBytes((int)invoke);
-        if(clazz == short.class) return toBytes((short)invoke);
-        if(clazz == byte.class) return toBytes((byte)invoke);
+        if(clazz == Boolean.class) return toBytes((boolean)invoke);
+        if(clazz == Long.class) return toBytes((long)invoke);
+        if(clazz == Integer.class) return toBytes((int)invoke);
+        if(clazz == Short.class) return toBytes((short)invoke);
+        if(clazz == Byte.class) return toBytes((byte)invoke);
         if(clazz == byte[].class) return (byte[])invoke;
         if(isArray(clazz))return toBytes((Object[])invoke);
         if(isEnum(clazz))return Coder.toBytes(Reflect.getEnumName(invoke));
@@ -182,10 +182,9 @@ public class Coder {
         for(Field field : clazz.getDeclaredFields()){
             if(!Reflect.isEditable(field))continue;
             if(!field.isAccessible())field.setAccessible(true);
-            Object obj = Reflect.getFromField(field, invoke);
-            if(obj == null)obj = "null";
-            Object primitive = Reflect.getPrimitive(field, invoke);
-            zip.add(Coder.toBytes(primitive == null ? obj : primitive));
+            Object obj = Reflect.getPrimitive(field, invoke);
+            if(obj == null)zip.add(Coder.toBytes(Reflect.getFromField(field, invoke)));
+            else zip.add(Coder.toBytes(obj));
         }
         return zip.build();
     }
