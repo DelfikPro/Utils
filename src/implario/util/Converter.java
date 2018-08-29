@@ -2,6 +2,7 @@ package implario.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -79,6 +80,13 @@ public class Converter {
 		} else {
 			return new ArrayList<>();
 		}
+	}
+
+	@SafeVarargs
+	public static <T> List<T> asList(T... t) {
+		List<T> list = new ArrayList<>();
+		Collections.addAll(list, t);
+		return list;
 	}
 	
 	public static <T> String merge(Collection<T> collection, Function<T, String> converter, String separator) {

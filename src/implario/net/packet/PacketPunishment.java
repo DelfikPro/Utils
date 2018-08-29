@@ -1,8 +1,8 @@
 package implario.net.packet;
 
 import implario.net.Packet;
-import implario.util.ManualByteUnzip;
-import implario.util.ManualByteZip;
+import implario.util.ByteUnzip;
+import implario.util.ByteZip;
 
 public class PacketPunishment extends Packet {
 	private String nick, moder, reason;
@@ -11,7 +11,7 @@ public class PacketPunishment extends Packet {
 
 	private Punishment punishment;
 
-	public PacketPunishment(ManualByteUnzip unzip){
+	public PacketPunishment(ByteUnzip unzip){
 		this.nick = unzip.getString();
 		this.punishment = Punishment.valueOf(unzip.getString());
 		this.moder = unzip.getString();
@@ -52,8 +52,8 @@ public class PacketPunishment extends Packet {
 	}
 
 	@Override
-	protected ManualByteZip encode() {
-		return new ManualByteZip().add(nick).add(punishment + "").add(moder).add(time).add(reason);
+	protected ByteZip encode() {
+		return new ByteZip().add(nick).add(punishment + "").add(moder).add(time).add(reason);
 	}
 
 	public enum Punishment{
