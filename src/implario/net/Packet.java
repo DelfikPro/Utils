@@ -16,6 +16,7 @@ import implario.net.packet.PacketWrite;
 import implario.util.ByteUnzip;
 import implario.util.ByteZip;
 import implario.util.Byteable;
+import implario.util.Coder;
 import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 import implario.util.ManualByteable;
@@ -49,9 +50,11 @@ public abstract class Packet {
 		return result.add(Byteable.toBytes(this)).build();
 	}
 
-	public static Packet getPacket(byte array[]){
+	public static Packet getPacket(byte array[]) {
 		ByteUnzip unzip = new ByteUnzip(array);
 		String name = unzip.getString();
+		System.out.println("Имя пришедшего пакета - " + name);
+		System.out.println(Coder.toString(array));
 		Class<? extends Packet> packet = packets.get(name);
 		if(packet == null)throw new IllegalArgumentException("Packet not registered " + name);
 		return Byteable.toByteable(array, packet);
