@@ -5,12 +5,10 @@ import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 
 public class PacketWrite extends Packet {
-	private final String name;
-	private final byte file[];
+	private String name;
+	private byte file[];
 
-	public PacketWrite(ManualByteUnzip unzip){
-		name = unzip.getString();
-		file = unzip.getBytes();
+	public PacketWrite(){
 	}
 
 	public PacketWrite(String name, byte file[]) {
@@ -24,10 +22,5 @@ public class PacketWrite extends Packet {
 
 	public byte[] getFile() {
 		return file;
-	}
-
-	@Override
-	protected ManualByteZip encode() {
-		return new ManualByteZip().add(name).add(file);
 	}
 }

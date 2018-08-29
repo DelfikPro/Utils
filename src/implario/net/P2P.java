@@ -54,7 +54,7 @@ public class P2P implements Runnable{
 
 	public void send(Packet packet){
 		try{
-			byte write[] = packet.zip().build();
+			byte write[] = packet.zip();
 			if(crypt != null)write = crypt.encrypt(write);
 			writer.write(Base64.getEncoder().encodeToString(write));
 			writer.newLine();

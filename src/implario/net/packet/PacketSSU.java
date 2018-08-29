@@ -5,13 +5,10 @@ import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 
 public class PacketSSU extends Packet {
-	
-	private final String server;
-	private final int online;
+	private String server;
+	private int online;
 
-	public PacketSSU(ManualByteUnzip unzip) {
-		this.server = unzip.getString();
-		this.online = unzip.getInt();
+	public PacketSSU() {
 	}
 
 	public PacketSSU(String server, int online){
@@ -25,10 +22,5 @@ public class PacketSSU extends Packet {
 
 	public int getOnline() {
 		return online;
-	}
-
-	@Override
-	protected ManualByteZip encode() {
-		return new ManualByteZip().add(server).add(online);
 	}
 }

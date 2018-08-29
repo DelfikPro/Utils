@@ -39,4 +39,8 @@ public class ByteUnzip {
 		i = i + size;
 		return result;
 	}
+
+	public boolean next(){
+		return i >= array.length;
+	}
 }

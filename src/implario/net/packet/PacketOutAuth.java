@@ -5,11 +5,9 @@ import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 
 public class PacketOutAuth extends Packet {
-	private final String nick, ip;
+	private String nick, ip;
 
-	public PacketOutAuth(ManualByteUnzip unzip){
-		this.nick = unzip.getString();
-		this.ip = unzip.getString();
+	public PacketOutAuth(){
 	}
 
 	public PacketOutAuth(String nick, String ip){
@@ -23,10 +21,5 @@ public class PacketOutAuth extends Packet {
 
 	public String getIp() {
 		return ip;
-	}
-
-	@Override
-	protected ManualByteZip encode() {
-		return new ManualByteZip().add(nick).add(ip);
 	}
 }

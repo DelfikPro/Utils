@@ -6,11 +6,9 @@ import implario.util.ManualByteZip;
 
 public class PacketSummon extends Packet {
 	
-	private final String player, server;
+	private String player, server;
 	
-	public PacketSummon(ManualByteUnzip unzip) {
-		player = unzip.getString();
-		server = unzip.getString();
+	public PacketSummon() {
 	}
 	
 	public PacketSummon(String player, String server) {
@@ -24,10 +22,5 @@ public class PacketSummon extends Packet {
 	
 	public String getServer() {
 		return server;
-	}
-	
-	@Override
-	protected ManualByteZip encode() {
-		return new ManualByteZip().add(player).add(server);
 	}
 }

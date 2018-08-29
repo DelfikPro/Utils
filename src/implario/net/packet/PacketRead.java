@@ -5,11 +5,9 @@ import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 
 public class PacketRead extends Packet {
-	private final String read, write;
+	private String read, write;
 
-	public PacketRead(ManualByteUnzip unzip) {
-		read = unzip.getString();
-		write = unzip.getString();
+	public PacketRead() {
 	}
 
 	public PacketRead(String read, String write) {
@@ -23,10 +21,5 @@ public class PacketRead extends Packet {
 
 	public String getWrite() {
 		return write;
-	}
-
-	@Override
-	protected ManualByteZip encode() {
-		return new ManualByteZip().add(read).add(write);
 	}
 }

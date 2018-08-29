@@ -5,10 +5,10 @@ import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 
 public class PacketGC extends Packet {
-	private final boolean rl;
+	private boolean rl;
 
-	public PacketGC(ManualByteUnzip unzip){
-		rl = unzip.getBoolean();
+	public PacketGC(){
+
 	}
 
 	public PacketGC(boolean rl){
@@ -17,10 +17,5 @@ public class PacketGC extends Packet {
 
 	public boolean isRl() {
 		return rl;
-	}
-
-	@Override
-	protected ManualByteZip encode() {
-		return new ManualByteZip().add(rl);
 	}
 }

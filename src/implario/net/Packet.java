@@ -13,6 +13,9 @@ import implario.net.packet.PacketTop;
 import implario.net.packet.PacketUpdateTop;
 import implario.net.packet.PacketUser;
 import implario.net.packet.PacketWrite;
+import implario.util.ByteUnzip;
+import implario.util.ByteZip;
+import implario.util.Byteable;
 import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 import implario.util.ManualByteable;
@@ -20,29 +23,38 @@ import implario.util.ManualByteable;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Packet implements ManualByteable {
+public abstract class Packet {
 	private static final Map<String, Class<? extends Packet>> packets = new HashMap<>();
 
 	public String getType() {
 		return getClass().getName().substring(6);
 	}
 
-	protected abstract ManualByteZip encode();
+	protected ByteZip encode(){
+		return null;
+	}
 
-	@Override
-	public ManualByteZip zip() {
+	public byte[] zip() {
 		String type = getType();
 		byte[] b = new byte[type.length()];
 		for(int i = 0; i < b.length; i++)
 			b[i] = (byte)type.charAt(i);
-		return encode().addStart(b);
+		ByteZip result = new ByteZip();
+		result.add(type);
+		ByteZip zip = encode();
+		if(zip != null){
+			result.add(zip.build());
+			return result.build();
+		}
+		return result.add(Byteable.toBytes(this)).build();
 	}
 
-	public static Packet getPacket(ManualByteUnzip unzip){
+	public static Packet getPacket(byte array[]){
+		ByteUnzip unzip = new ByteUnzip(array);
 		String name = unzip.getString();
 		Class<? extends Packet> packet = packets.get(name);
 		if(packet == null)throw new IllegalArgumentException("Packet not registered " + name);
-		return ManualByteable.decode(packet, unzip);
+		return Byteable.toByteable(array, packet);
 	}
 
 	public static void register(Class<? extends Packet> clazz) {

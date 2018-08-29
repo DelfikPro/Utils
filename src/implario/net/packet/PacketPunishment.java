@@ -5,12 +5,11 @@ import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 
 public class PacketPunishment extends Packet {
+	private String nick, moder, reason;
 
-	private final String nick, moder, reason;
+	private int time;
 
-	private final int time;
-
-	private final Punishment punishment;
+	private Punishment punishment;
 
 	public PacketPunishment(ManualByteUnzip unzip){
 		this.nick = unzip.getString();

@@ -1,6 +1,8 @@
 package implario.net.packet;
 
 import implario.net.Packet;
+import implario.util.ByteUnzip;
+import implario.util.ByteZip;
 import implario.util.ManualByteUnzip;
 import implario.util.ManualByteZip;
 import implario.util.Converter;
@@ -11,7 +13,7 @@ import java.util.List;
 public class PacketTop extends Packet {
 	private final Top top[];
 
-	public PacketTop(ManualByteUnzip unzip){
+	public PacketTop(ByteUnzip unzip){
 		List<String> list = new ArrayList<>();
 		while (unzip.next())
 			list.add(unzip.getString());
@@ -32,8 +34,8 @@ public class PacketTop extends Packet {
 	}
 
 	@Override
-	protected ManualByteZip encode() {
-		ManualByteZip zip = new ManualByteZip();
+	protected ByteZip encode() {
+		ByteZip zip = new ByteZip();
 		for(Top top : top)
 			zip.add(top == null ? "null" : top.toString());
 		return zip;
@@ -72,7 +74,7 @@ public class PacketTop extends Packet {
 
 		@Override
 		public String toString() {
-			return nick + "?" + wins + "?" + games;
+			return nick + "}" + wins + "}" + games;
 		}
 	}
 }

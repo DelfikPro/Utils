@@ -2,9 +2,11 @@ package implario.util;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.sql.Ref;
 
 import static implario.util.Reflect.create;
 import static implario.util.Reflect.getConstructor;
+import static implario.util.Reflect.getFromEnum;
 
 public interface Byteable {
 	default byte[] toBytes(){
@@ -23,8 +25,10 @@ public interface Byteable {
 		return null;
 	}
 
-	static <T extends Byteable> T toByteable(byte array[], Class<T> clazz){
-		Constructor<T> constructor = getConstructor(clazz, byte[].class);
+	static <T> T toByteable(byte array[], Class<T> clazz){
+		Constructor<T> constructor = getConstructor(clazz);
+		if(constructor != null) return toObject(array, clazz);
+		constructor = getConstructor(clazz, byte[].class);
 		if(constructor == null)constructor = getConstructor(clazz, ByteUnzip.class);
 		if(constructor == null)constructor = getConstructor(clazz, Packet.class);
 		if(constructor == null)constructor = getConstructor(clazz, String.class);
@@ -41,7 +45,8 @@ public interface Byteable {
 			Class klass = field.getType();
 			byte write[] = unzip.getBytes();
 			Object primitive = Coder.getPrimitiveObject(klass, write);
-			Reflect.setToField(field, obj, primitive == null ? toObject(write, klass) : primitive);
+			Reflect.setToField(field, obj, klass.isEnum() ? getFromEnum(klass, Coder.toString(write)) :
+					primitive == null ? toObject(write, klass) : primitive);
 		}
 		return obj;
 	}
@@ -49,6 +54,7 @@ public interface Byteable {
 	static byte[] toBytes(Object invoke){
 		Class clazz = invoke.getClass();
 		ByteZip zip = new ByteZip();
+		if(clazz.isEnum())return zip.add(Reflect.voidExecute(clazz, invoke, "name")).build();
 		for(Field field : clazz.getDeclaredFields()){
 			if(!Reflect.isEditable(field))continue;
 			if(!field.isAccessible())field.setAccessible(true);

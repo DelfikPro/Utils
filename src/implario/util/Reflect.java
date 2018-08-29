@@ -29,6 +29,19 @@ public class Reflect {
 		}, false);
 	}
 
+	public static Object voidExecute(Class clazz, Object invoke, String method){
+		return Exceptions.getThrowsEx(() -> clazz.getMethod(method).invoke(invoke), false);
+	}
+
+	public static Object getFromEnum(Class clazz, String line){
+		return Exceptions.getThrowsEx(() -> {
+			for(Object object : clazz.getEnumConstants())
+				if(clazz.getMethod("name").invoke(object).equals(line))
+					return object;
+			return null;
+		});
+	}
+
 	public static boolean isFinal(Field field){
 		return Modifier.isFinal(field.getModifiers());
 	}

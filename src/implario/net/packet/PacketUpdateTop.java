@@ -6,17 +6,11 @@ import implario.util.ManualByteZip;
 
 public class PacketUpdateTop extends Packet {
 
-	private final String nick;
+	private String nick;
+	private boolean win;
+	private int beds, deaths;
 
-	private final boolean win;
-
-	private final int beds, deaths;
-
-	public PacketUpdateTop(ManualByteUnzip unzip){
-		this.nick = unzip.getString();
-		this.win = unzip.getBoolean();
-		this.beds = unzip.getInt();
-		this.deaths = unzip.getInt();
+	public PacketUpdateTop(){
 	}
 
 	public PacketUpdateTop(String nick, boolean win, int beds, int deaths) {
@@ -40,10 +34,5 @@ public class PacketUpdateTop extends Packet {
 
 	public int getDeaths() {
 		return deaths;
-	}
-
-	@Override
-	protected ManualByteZip encode() {
-		return new ManualByteZip().add(nick).add(win).add(beds).add(deaths);
 	}
 }
