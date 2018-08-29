@@ -50,8 +50,8 @@ public abstract class Packet {
 		}
 		result.add(Coder.toBytes(this));
 		ByteUnzip unzip = new ByteUnzip(result.build());
-		System.out.println(unzip.getString());
-		System.out.println(unzip.getString());
+		System.out.println("asfsfa " + unzip.getString());
+		System.out.println("LolKek " + new ByteUnzip(unzip.getBytes()).getString());
 		return result.build();
 	}
 
@@ -62,7 +62,7 @@ public abstract class Packet {
 		System.out.println("123" + Coder.toString(array) + " 123");
 		Class<? extends Packet> packet = packets.get(name);
 		if(packet == null)throw new IllegalArgumentException("Packet not registered " + name);
-		return Byteable.toByteable(array, packet);
+		return Byteable.toByteable(unzip.getBytes(), packet);
 	}
 
 	public static void register(Class<? extends Packet> clazz) {

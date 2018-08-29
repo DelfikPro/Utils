@@ -25,12 +25,15 @@ public interface Byteable {
 
 	static <T> T toByteable(byte array[], Class<T> clazz){
 		Constructor<T> constructor = getConstructor(clazz);
-		if(constructor != null) return toObject(array, clazz);
+		if(constructor != null)return Coder.toObject(array, clazz);
 		constructor = getConstructor(clazz, byte[].class);
-		if(constructor == null)constructor = getConstructor(clazz, ByteUnzip.class);
-		if(constructor == null)constructor = getConstructor(clazz, Packet.class);
-		if(constructor == null)constructor = getConstructor(clazz, String.class);
-		if(constructor == null) throw new IllegalArgumentException("No such constructor :c");
-		return create(constructor, Coder.toString(array));
+		if(constructor != null)return create(constructor, array);
+		constructor = getConstructor(clazz, ByteUnzip.class);
+		if(constructor != null)return create(constructor, new ByteUnzip(array));
+		constructor = getConstructor(clazz, Packet.class);
+		if(constructor != null)return create(constructor, Packet.getPacket(array));
+		constructor = getConstructor(clazz, String.class);
+		if(constructor != null)return create(constructor, Coder.toString(array));
+		throw new IllegalArgumentException("No such constructor :c");
 	}
 }

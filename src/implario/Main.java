@@ -10,6 +10,6 @@ public class Main{
         PacketInit init = new PacketInit("125");
         byte array[] = init.zip();
         PacketInit init1 = (PacketInit)Packet.getPacket(array);
-        System.out.println(init1.getServer());
+        System.out.println("rwqqrwqrwqrwqrwqr " + init1.getServer());
     }
 }
