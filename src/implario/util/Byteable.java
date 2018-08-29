@@ -1,5 +1,6 @@
 package implario.util;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.sql.Ref;
