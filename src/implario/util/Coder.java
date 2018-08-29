@@ -152,8 +152,6 @@ public class Coder {
     }
 
     public static <T> T toObject(byte array[], Class<T> clazz){
-        System.out.println(clazz);
-        System.out.println(isArray(clazz));
         if(isPrimitive(clazz))return (T)toPrimitive(clazz, array);
         if(isEnum(clazz))return (T)toEnum(clazz, array);
         if(isArray(clazz))return (T)toArray(clazz, array);

@@ -42,24 +42,18 @@ public abstract class Packet {
 			b[i] = (byte)type.charAt(i);
 		ByteZip result = new ByteZip();
 		result.add(type);
-		System.out.println(type);
 		ByteZip zip = encode();
 		if(zip != null){
 			result.add(zip.build());
 			return result.build();
 		}
 		result.add(Coder.toBytes(this));
-		ByteUnzip unzip = new ByteUnzip(result.build());
-		System.out.println("asfsfa " + unzip.getString());
-		System.out.println("LolKek " + new ByteUnzip(unzip.getBytes()).getString());
 		return result.build();
 	}
 
 	public static Packet getPacket(byte array[]) {
 		ByteUnzip unzip = new ByteUnzip(array);
 		String name = unzip.getString();
-		System.out.println("Имя пришедшего пакета - " + name + " 123");
-		System.out.println("123" + Coder.toString(array) + " 123");
 		Class<? extends Packet> packet = packets.get(name);
 		if(packet == null)throw new IllegalArgumentException("Packet not registered " + name);
 		return Byteable.toByteable(unzip.getBytes(), packet);
