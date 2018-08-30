@@ -3,25 +3,17 @@ package implario.net.packet;
 import implario.net.Packet;
 import implario.util.ByteUnzip;
 import implario.util.ByteZip;
-import implario.util.ManualByteUnzip;
-import implario.util.ManualByteZip;
-import implario.util.Converter;
-
-import java.util.ArrayList;
-import java.util.List;
+import implario.util.Byteable;
 
 public class PacketTop extends Packet {
 	private final Top top[];
 
 	public PacketTop(ByteUnzip unzip){
-		List<String> list = new ArrayList<>();
-		while (unzip.next())
-			list.add(unzip.getString());
-		top = new Top[list.size()];
-		for(int i = 0; i < list.size(); i++){
-			if(list.get(i).equals("null"))
-				top[i] = null;
-			else top[i] = new Top(list.get(i));
+		top = new Top[unzip.getInt()];
+		for(int i = 0; i < top.length; i++){
+			byte array[] = unzip.getBytes();
+			if(array.length == 0) top[i] = null;
+			else top[i] = Byteable.toByteable(array, Top.class);
 		}
 	}
 
@@ -36,22 +28,20 @@ public class PacketTop extends Packet {
 	@Override
 	protected ByteZip encode() {
 		ByteZip zip = new ByteZip();
-		for(Top top : top)
-			zip.add(top == null ? "null" : top.toString());
+		zip.add(top.length);
+		for(Top top : top) zip.add(top == null ? new byte[]{} : top.toBytes());
 		return zip;
 	}
 
-	public static class Top{
+	public static class Top implements Byteable{
 		private final String nick;
 
 		private final int wins, games;
 
-		public Top(String serialize){
-			String split[] = serialize.split("}");
-			boolean b = split.length < 2;
-			this.nick = b ? null : split[0];
-			this.wins = Converter.toInt(split[1]);
-			this.games = Converter.toInt(split[2]);
+		public Top(ByteUnzip unzip){
+			this.nick = unzip.getString();
+			this.wins = unzip.getInt();
+			this.games = unzip.getInt();
 		}
 
 		public Top(String nick, int wins, int games) {
@@ -73,8 +63,8 @@ public class PacketTop extends Packet {
 		}
 
 		@Override
-		public String toString() {
-			return nick + "}" + wins + "}" + games;
+		public ByteZip toByteZip() {
+			return new ByteZip().add(nick).add(wins).add(games);
 		}
 	}
 }
