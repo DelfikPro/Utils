@@ -16,7 +16,7 @@ public class Scheduler extends Thread{
 	public void run() {
 		while (started){
 			sleep(100);
-			if(++times == 11)times = 1;
+			if(++times == 101)times = 1;
 			for(Task task : tasks)
 				if(times % task.times == 0)task.run();
 		}
