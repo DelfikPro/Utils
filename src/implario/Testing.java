@@ -8,10 +8,9 @@ import implario.crypt.RSA;
 import implario.io.FileIO;
 import implario.net.Client;
 import implario.net.Response;
-import implario.util.Packet;
+import implario.net.Server;
 import implario.util.ByteUnzip;
 import implario.util.ByteZip;
-import implario.net.Server;
 import implario.util.Coder;
 
 import java.nio.charset.Charset;
@@ -106,28 +105,6 @@ public class Testing {
         server.close();
     }
 
-    public static void packet(){
-        PacketStr packet = new PacketStr("LolKek");
-        System.out.println(packet.str);
-        System.out.println(((PacketStr)Packet.getPacket(packet.toBytes())).str);
-    }
-
-    public static class PacketStr extends Packet {
-        public final String str;
-
-        public PacketStr(String line){
-            this.str = line;
-        }
-
-        public PacketStr(ByteUnzip line) {
-            this.str = line.getString();
-        }
-
-        @Override
-        public ByteZip toByteZip() {
-            return new ByteZip().add(str);
-        }
-    }
 
     public static void file(){
         FileIO.write("Lol", "Lol12355");
