@@ -219,14 +219,18 @@ public class Coder {
         };
     }
 
-    public static byte[] toBytes(int i){
-        if(i >> 16 == i)return toBytes((short)i);
+    private static byte[] toAbsoluteBytes(int i){
         return new byte[]{
                 (byte)(i >> 24),
                 (byte)(i >> 16),
                 (byte)(i >> 8),
                 (byte)i
         };
+    }
+
+    public static byte[] toBytes(int i){
+        if(i >> 16 == i)return toBytes((short)i);
+        return toAbsoluteBytes(i);
     }
 
     public static byte[] toBytes(short s){
@@ -272,7 +276,7 @@ public class Coder {
 
     public static byte[] getSize(int size){
         if(size < 127)return new byte[]{(byte)size};
-        return addBytes(new byte[]{(byte)4}, toBytes(size));
+        return addBytes(new byte[]{(byte)127}, toAbsoluteBytes(size));
     }
 
     public static int getSize(byte array[], int start){
