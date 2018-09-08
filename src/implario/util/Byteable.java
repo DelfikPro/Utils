@@ -1,8 +1,9 @@
 package implario.util;
 
+import implario.net.Packet;
+
 import java.lang.reflect.Constructor;
 
-import static implario.util.Coder.toObject;
 import static implario.util.Reflect.create;
 import static implario.util.Reflect.getConstructor;
 
@@ -11,7 +12,7 @@ public interface Byteable {
 		ByteZip zip = toByteZip();
 		if(zip != null)return zip.build();
 		Packet packet = toPacket();
-		if(packet != null)return packet.toBytes();
+		if(packet != null)return Coder.toBytes(packet);
 		return Coder.toBytes(toString());
 	}
 
