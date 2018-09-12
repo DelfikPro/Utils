@@ -1,5 +1,7 @@
 package implario.util;
 
+import java.util.List;
+
 public class ByteUnzip {
 	private final byte array[];
 	private int i = 0;
@@ -38,6 +40,10 @@ public class ByteUnzip {
 		byte result[] = Coder.subBytes(array, size, i);
 		i = i + size;
 		return result;
+	}
+
+	public List<String> getList() {
+		return Converter.toList(getString(), (char)0x0b + "");
 	}
 
 	public boolean next(){
