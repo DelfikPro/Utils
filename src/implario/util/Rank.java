@@ -62,4 +62,8 @@ public enum Rank {
 	public byte getByte() {
 		return (byte) name().charAt(0);
 	}
+
+	public static Rank random() {
+		return values()[(int) (values().length * Math.random())];
+	}
 }
