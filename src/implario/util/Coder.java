@@ -176,6 +176,7 @@ public class Coder {
         if(clazz == Short.class) return toBytes((short)invoke);
         if(clazz == Byte.class) return toBytes((byte)invoke);
         if(clazz == byte[].class) return (byte[])invoke;
+        if(clazz == List.class) return toBytes(Converter.merge(((List) invoke), String::valueOf,(char)0x0b + ""));
         if(isArray(clazz))return toBytes((Object[])invoke);
         if(isEnum(clazz))return Coder.toBytes(Reflect.getEnumName(invoke));
         ByteZip zip = new ByteZip();

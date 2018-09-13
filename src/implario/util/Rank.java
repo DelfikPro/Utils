@@ -5,6 +5,7 @@ import java.util.HashMap;
 public enum Rank {
 
 	DEV("§7<§3§lDev§7> ", "§3", "Разработчик"),
+	CEKPET("§7<§7§l§oMystery> ", "§4", "Mystery"),
 	ADMIN("§7<§c§lA§7> ", "§c", "Админ"),
 	LMAO("§7<§d§lLMAO§7> ", "§d", "LMAO"),
 	IMPLARIO("§7<§8§lImplario§7> ", "§8", "Implario"),
