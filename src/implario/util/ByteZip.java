@@ -18,6 +18,14 @@ public class ByteZip {
 		return result;
 	}
 
+	public ByteZip add(List<String> list){
+		ByteZip zip = new ByteZip();
+		zip.add(list.size());
+		for(String line : list)
+			zip.add(line);
+		return add(zip.build());
+	}
+
 	public ByteZip add(Object object){
 		return add(Coder.toBytes(object));
 	}

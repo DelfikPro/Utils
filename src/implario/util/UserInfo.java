@@ -3,7 +3,7 @@ package implario.util;
 import java.util.List;
 import java.util.function.Function;
 
-public class UserInfo {
+public class UserInfo implements Byteable{
 	public int version = Version.last();
 
 	public String name, passhash, lastIP;
