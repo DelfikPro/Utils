@@ -4,21 +4,21 @@ import java.util.HashMap;
 
 public enum Rank {
 
-	DEV("§7<§3§lDev§7> ", "§3", "Разработчик"),
-	CEKPET("§7<§7§l§oMystery> ", "§4", "Mystery"),
-	ADMIN("§7<§c§lA§7> ", "§c", "Админ"),
-	LMAO("§7<§d§lLMAO§7> ", "§d", "LMAO"),
-	IMPLARIO("§7<§8§lImplario§7> ", "§8", "Implario"),
-	KURATOR("§7<§6§lКуратор§7> ", "§6", "Куратор"),
-	ULTIBUILDER("§7<§d§lАрхитектор§7> ", "§d", "Архитектор"),
-	SPONSOR("§7<§b§lСпонсор§7> ", "§b", "Спонсор"),
-	WARDEN("§4<§e§lМодер§4> ", "§e", "Пр. Модератор"),
-	MODER("§7<§e§lМодер§7> ", "§e", "Модератор"),
-	RECRUIT("§7<§e§lСтажёр§7> ", "§e", "Модератор-стажёр"),
-	BUILDER("§7<§2§lБилдер§7> ", "§2", "Билдер"),
-	YOUTUBE("§7<§cYou§fTube§7> ", "§c", "Ютубер"),
-	TESTER("§7<§a§lT§7> ", "§a", "Тестер"),
-	VIP("§7<§a§lV§7> ", "§a", "VIP"),
+	DEV("§3[§lDev§3] ", "§3", "Разработчик"),
+	CEKPET("§7<§4§l§oMystery> ", "§4", "Mystery"),
+	ADMIN("§c[§lA§c] ", "§c", "Админ"),
+	LMAO("§d[§lLMAO§d] ", "§d", "LMAO"),
+	IMPLARIO("§8[§lImplario§8] ", "§8", "Implario"),
+	KURATOR("§6[§lK§6] ", "§6", "Куратор"),
+	ULTIBUILDER("§e[§lB§e+] ", "§e", "Архитектор"),
+	SPONSOR("§b[§lS§b] ", "§b", "Спонсор"),
+	WARDEN("§2[§lM§2+] ", "§2", "Пр. Модератор"),
+	MODER("§2[§lM§2] ", "§2", "Модератор"),
+	RECRUIT("§2[§lR§2] ", "§2", "Модератор-стажёр"),
+	BUILDER("§e[§lB§e] ", "§e", "Билдер"),
+	YOUTUBE("§c[§f§lY§c§lT§c] ", "§c", "Ютубер"),
+	TESTER("§a[§lT§a] ", "§a", "Тестер"),
+	VIP("§a[§lV§a] ", "§a", "VIP"),
 	PLAYER("", "", "Игрок");
 
 	public static final HashMap<Character, Rank> byChar = new HashMap<>();
