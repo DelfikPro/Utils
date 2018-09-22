@@ -179,6 +179,12 @@ public class Converter {
 		return result;
 	}
 
+	public static <From, To> Set<To> transform(Set<From> from, Function<From, To> converter) {
+		Set<To> result = new HashSet<>();
+		for (From f : from) result.add(converter.apply(f));
+		return result;
+	}
+
 	public static String representBoolean(boolean b) {
 		return b ? "§aвключен" : "§cвыключен";
 	}
