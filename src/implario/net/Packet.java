@@ -1,6 +1,7 @@
 package implario.net;
 
 import implario.net.packet.PacketAuth;
+import implario.net.packet.PacketChangeTheme;
 import implario.net.packet.PacketGC;
 import implario.net.packet.PacketInit;
 import implario.net.packet.PacketOutAuth;
@@ -17,9 +18,6 @@ import implario.util.ByteUnzip;
 import implario.util.ByteZip;
 import implario.util.Byteable;
 import implario.util.Coder;
-import implario.util.ManualByteUnzip;
-import implario.util.ManualByteZip;
-import implario.util.ManualByteable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,5 +72,6 @@ public abstract class Packet {
 		register(PacketRead.class);
 		register(PacketGC.class);
 		register(PacketOutAuth.class);
+		register(PacketChangeTheme.class);
 	}
 }
