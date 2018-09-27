@@ -66,5 +66,10 @@ public class ArrayUtils {
 
 		return copyArray;
 	}
+
+	public static int firstEmpty(Object[] array) {
+		for (int i = 0; i < array.length; i++) if (array[i] == null) return i;
+		return -1;
+	}
 }
 
