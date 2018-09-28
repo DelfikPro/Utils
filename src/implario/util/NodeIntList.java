@@ -8,6 +8,10 @@ public class NodeIntList {
         return true;
     }
 
+    public void removeObject(int object){
+        node.removeObject(object);
+    }
+
     public void remove(int index) {
         node.remove(index);
     }
@@ -49,12 +53,18 @@ public class NodeIntList {
             else next.remove(index - 1);
         }
 
+        private void removeObject(int object){
+            if(next == null)return;
+            if(next.object == object)next = next.next;
+            else next.removeObject(object);
+        }
+
         private int size(){
             return next == null ? 1 : next.size() + 1;
         }
     }
 
-    private class NodeIterator{
+    public class NodeIterator{
         private Node next = node;
 
         public boolean hasNext() {
