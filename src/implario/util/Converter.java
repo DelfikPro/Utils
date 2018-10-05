@@ -195,6 +195,6 @@ public class Converter {
 		return clazz.getEnumConstants()[x];
 	}
 	public static <T> T random(List<T> collection) {
-		return collection.get((int) (collection.size() * Math.random()));
+		return collection.isEmpty() ? null : collection.get((int) (collection.size() * Math.random()));
 	}
 }
