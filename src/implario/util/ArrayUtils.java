@@ -1,5 +1,7 @@
 package implario.util;
 
+import java.util.Random;
+
 public class ArrayUtils {
 	
 	public static String toString(Object[] array) {
@@ -70,6 +72,18 @@ public class ArrayUtils {
 	public static int firstEmpty(Object[] array) {
 		for (int i = 0; i < array.length; i++) if (array[i] == null) return i;
 		return -1;
+	}
+
+	public static void shuffleArray(Object[] array) {
+		int index;
+		Object temp;
+		Random random = new Random();
+		for (int i = array.length - 1; i > 0; i--) {
+			index = random.nextInt(i + 1);
+			temp = array[index];
+			array[index] = array[i];
+			array[i] = temp;
+		}
 	}
 }
 
