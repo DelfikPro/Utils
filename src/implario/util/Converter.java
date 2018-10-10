@@ -52,7 +52,7 @@ public class Converter {
 	public static String toString(List array, int start, int end) {
 		return toString(array, start, end, ' ');
 	}
-	
+
 	public static String toString(List array, int start, int end, char magic) {
 		if(start >= end) return String.valueOf(magic);
 		StringBuilder result = new StringBuilder();
@@ -64,11 +64,11 @@ public class Converter {
 		}
 		return result.toString();
 	}
-	
+
 	public static List<String> toList(String s) {
 		return toList(s, " ");
 	}
-	
+
 	public static List<String> toList(String s, String magic) {
 		if (s != null && s.length() > 1) {
 			List<String> list = new ArrayList<>();
@@ -83,12 +83,19 @@ public class Converter {
 	}
 
 	@SafeVarargs
+	public static <T> Set<T> asSet(T... ts) {
+		Set<T> set = new HashSet<>();
+		Collections.addAll(set, ts);
+		return set;
+	}
+
+	@SafeVarargs
 	public static <T> List<T> asList(T... t) {
 		List<T> list = new ArrayList<>();
 		Collections.addAll(list, t);
 		return list;
 	}
-	
+
 	public static <T> String merge(Collection<T> collection, Function<T, String> converter, String separator) {
 		if (collection == null) return "";
 		StringBuilder result = new StringBuilder();
@@ -100,7 +107,7 @@ public class Converter {
 		}
 		return result.toString();
 	}
-	
+
 	public static <T> String merge(T[] array, Function<T, String> converter, String separator) {
 		if (array == null) return "";
 		StringBuilder result = new StringBuilder();
@@ -112,7 +119,7 @@ public class Converter {
 		}
 		return result.toString();
 	}
-	
+
 	public static String smartLowercase(String string) {
 		char[] result = string.toCharArray();
 		for (int i = 0; i < result.length; i++) {
@@ -121,19 +128,19 @@ public class Converter {
 		}
 		return new String(result);
 	}
-	
+
 	public static String mergeArray(String[] array, int start, String separator) {
 		if (start >= array.length) return null;
 		StringBuilder sb = new StringBuilder(array[start++]);
 		for (; start < array.length; start++) sb.append(separator).append(array[start]);
 		return sb.toString();
 	}
-	
+
 	public static String plural(int number, String one, String mid, String much) {
 		switch (number % 100) {case 11: case 12: case 13: case 14:	return much; default: break;}
 		switch (number % 10) {case 1: return one; case 2: case 3: case 4: return mid; default: return much;}
 	}
-	
+
 	public static <T> Set<String> tabComplete(Iterable<T> iterable, Function<T, String> converter, String startstring) {
 		Set<String> set = new HashSet<>();
 		boolean empty = startstring.length() == 0;
@@ -144,7 +151,7 @@ public class Converter {
 		}
 		return set;
 	}
-	
+
 	public static <T> List<String> tabCompleteList(Iterable<T> iterable, Function<T, String> converter, String startstring) {
 		List<String> set = new ArrayList<>();
 		boolean empty = startstring.length() == 0;
@@ -155,8 +162,8 @@ public class Converter {
 		}
 		return set;
 	}
-	
-	
+
+
 	public static HashMap<String, String> deserializeMap(String string, String entrySeparator, String keyValueSeparator) {
 		if(string == null)return new HashMap<>();
 		String split[] = string.split(entrySeparator);
@@ -168,7 +175,7 @@ public class Converter {
 		}
 		return map;
 	}
-	
+
 	public static List<String> deserializeList(String str, String separator) {
 		return str == null ? new ArrayList<>() : toList(str, separator);
 	}
@@ -197,4 +204,5 @@ public class Converter {
 	public static <T> T random(List<T> collection) {
 		return collection.isEmpty() ? null : collection.get((int) (collection.size() * Math.random()));
 	}
+
 }
