@@ -67,4 +67,8 @@ public class P2P implements Runnable{
 	public void close(){
 		try {socket.close();} catch (IOException ignored) {}
 	}
+
+	public Socket socket(){
+		return socket;
+	}
 }
