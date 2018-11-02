@@ -22,7 +22,9 @@ public class Connector extends CSSystem implements NetServer {
 
     @Override
     public void run() {
-        Exceptions.runThrowsEx(this::execute, false);
+        Exceptions.runThrowsEx(this::execute);
+        closeOutException();
+        consumer.closed();
     }
 
     @Override
