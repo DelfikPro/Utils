@@ -8,7 +8,8 @@ public enum ServerType {
 	PVP,
 	BW,
 	SF,
-	B;
+	B,
+	UHC;
 
 	public static ServerType getType(String line){
 		for(ServerType type : values())
