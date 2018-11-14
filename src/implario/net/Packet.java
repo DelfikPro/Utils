@@ -1,19 +1,6 @@
 package implario.net;
 
-import implario.net.packet.PacketAuth;
-import implario.net.packet.PacketChangeTheme;
-import implario.net.packet.PacketGC;
-import implario.net.packet.PacketInit;
-import implario.net.packet.PacketOutAuth;
-import implario.net.packet.PacketPex;
-import implario.net.packet.PacketPunishment;
-import implario.net.packet.PacketRead;
-import implario.net.packet.PacketSSU;
-import implario.net.packet.PacketSummon;
-import implario.net.packet.PacketTop;
-import implario.net.packet.PacketUpdateTop;
-import implario.net.packet.PacketUser;
-import implario.net.packet.PacketWrite;
+import implario.net.packet.*;
 import implario.util.ByteUnzip;
 import implario.util.ByteZip;
 import implario.util.Byteable;
@@ -73,5 +60,6 @@ public abstract class Packet {
 		register(PacketGC.class);
 		register(PacketOutAuth.class);
 		register(PacketChangeTheme.class);
+		register(PacketTopUpdate.class);
 	}
 }
