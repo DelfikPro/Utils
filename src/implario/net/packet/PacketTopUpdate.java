@@ -1,21 +1,23 @@
 package implario.net.packet;
 
 import implario.net.Packet;
+import implario.util.ServerType;
 
 public class PacketTopUpdate extends Packet {
-    private String name, nick;
+    private String nick;
+    private ServerType type;
     private byte update[];
 
     public PacketTopUpdate(){}
 
-    public PacketTopUpdate(String name, byte update[], String nick){
-        this.name = name;
+    public PacketTopUpdate(ServerType type, byte update[], String nick){
+        this.type = type;
         this.update = update;
         this.nick = nick;
     }
 
-    public String getName() {
-        return name;
+    public ServerType type() {
+        return type;
     }
 
     public byte[] getUpdate() {

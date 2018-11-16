@@ -53,13 +53,12 @@ public abstract class Packet {
 		register(PacketPunishment.class);
 		register(PacketSummon.class);
 		register(PacketSSU.class);
-		register(PacketUpdateTop.class);
-		register(PacketTop.class);
 		register(PacketWrite.class);
 		register(PacketRead.class);
 		register(PacketGC.class);
 		register(PacketOutAuth.class);
 		register(PacketChangeTheme.class);
 		register(PacketTopUpdate.class);
+		register(PacketCreateTop.class);
 	}
 }
