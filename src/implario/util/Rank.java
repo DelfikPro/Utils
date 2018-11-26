@@ -7,7 +7,7 @@ public enum Rank {
 	DEV("§3[§lDev§3] ", "§3", "Разработчик"),
 	CEKPET("§7<§4§l§oMystery> ", "§4", "Mystery"),
 	ADMIN("§c[§lA§c] ", "§c", "Админ"),
-	LMAO("§d[§lLMAO§d] ", "§d", "LMAO"),
+	LMAO("§c[§lA§c] ", "§c", "Админ"),
 	IMPLARIO("§8[§lImplario§8] ", "§8", "Implario"),
 	KURATOR("§6[§lK§6] ", "§6", "Куратор"),
 	ULTIBUILDER("§e[§lB§e+] ", "§e", "Архитектор"),
