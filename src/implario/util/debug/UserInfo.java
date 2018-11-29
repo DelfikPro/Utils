@@ -1,9 +1,14 @@
-package implario.util;
+package implario.util.debug;
+
+import implario.util.ByteUnzip;
+import implario.util.ByteZip;
+import implario.util.Byteable;
+import implario.util.Rank;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class UserInfo implements Byteable{
+public class UserInfo implements Byteable {
 	public int version = Version.last();
 
 	public String name, passhash, lastIP;

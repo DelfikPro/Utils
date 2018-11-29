@@ -94,7 +94,7 @@ public class FileIO {
         return file.listFiles();
     }
 
-    private static File getFile(String file){
+    public static File getFile(String file){
         return new File(System.getProperty("user.dir") + prefix + file);
     }
 

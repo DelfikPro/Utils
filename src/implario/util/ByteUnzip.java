@@ -53,6 +53,6 @@ public class ByteUnzip {
 	}
 
 	public boolean next(){
-		return i >= array.length;
+		return i < array.length;
 	}
 }

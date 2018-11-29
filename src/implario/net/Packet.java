@@ -60,5 +60,6 @@ public abstract class Packet {
 		register(PacketChangeTheme.class);
 		register(PacketTopUpdate.class);
 		register(PacketCreateTop.class);
+		register(PacketMoney.class);
 	}
 }

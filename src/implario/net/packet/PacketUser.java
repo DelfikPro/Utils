@@ -3,7 +3,7 @@ package implario.net.packet;
 import implario.net.Packet;
 import implario.util.ByteUnzip;
 import implario.util.ByteZip;
-import implario.util.UserInfo;
+import implario.util.debug.UserInfo;
 
 public class PacketUser extends Packet {
 
