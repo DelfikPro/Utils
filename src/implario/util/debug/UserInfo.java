@@ -5,6 +5,7 @@ import implario.util.ByteZip;
 import implario.util.Byteable;
 import implario.util.Rank;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 import java.util.function.Function;
 
@@ -16,12 +17,13 @@ public class UserInfo implements Byteable {
 	public Rank rank;
 	public int online, money;
 	public List<String> friends, ignored;
+	public long items;
 
 	protected UserInfo() {}
 
 	public UserInfo(String name, String passhash, Rank rank, int online, String lastIP,
 					int money, boolean ipAttached, boolean pmDisabled, List<String> ignored,
-					List<String> friends, boolean darkTheme) {
+					List<String> friends, boolean darkTheme, long items) {
 		this.name = name;
 		this.passhash = passhash;
 		this.rank = rank;
@@ -33,6 +35,7 @@ public class UserInfo implements Byteable {
 		this.ignored = ignored;
 		this.friends = friends;
 		this.darkTheme = darkTheme;
+		this.items = items;
 	}
 
 	public ByteZip encode() {
@@ -48,7 +51,8 @@ public class UserInfo implements Byteable {
 				.add(pmDisabled)
 				.add(ignored)
 				.add(friends)
-				.add(darkTheme);
+				.add(darkTheme)
+				.add(items);
 	}
 
 	public enum Version {
@@ -63,7 +67,8 @@ public class UserInfo implements Byteable {
 				u.getBoolean(),
 				u.getList(),
 				u.getList(),
-				false
+				false,
+				0
 		)),
 		V1_DARKTHEME(u -> new UserInfo(
 				u.getString(),
@@ -76,7 +81,22 @@ public class UserInfo implements Byteable {
 				u.getBoolean(),
 				u.getList(),
 				u.getList(),
-				u.getBoolean()
+				u.getBoolean(),
+				0
+		)),
+		V2_ITEMS(u -> new UserInfo(
+				u.getString(),
+				u.getString(),
+				Rank.byChar.get((char) u.getByte()),
+				u.getInt(),
+				u.getString(),
+				u.getInt(),
+				u.getBoolean(),
+				u.getBoolean(),
+				u.getList(),
+				u.getList(),
+				u.getBoolean(),
+				u.getLong()
 		));
 
 		private final Function<ByteUnzip, UserInfo> unzipper;
