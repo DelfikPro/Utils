@@ -5,14 +5,13 @@ import java.util.HashMap;
 public enum Rank {
 
 	DEV("§3[§lDev§3] ", "§3", "Разработчик"),
-	CEKPET("§7<§4§l§oMystery> ", "§4", "Mystery"),
 	ADMIN("§c[§lA§c] ", "§c", "Админ"),
 	LMAO("§c[§lA§c] ", "§c", "Админ"),
 	IMPLARIO("§8[§lImplario§8] ", "§8", "Implario"),
 	KURATOR("§6[§lK§6] ", "§6", "Куратор"),
 	ULTIBUILDER("§e[§lB§e+] ", "§e", "Архитектор"),
-	SPONSOR("§b[§lS§b] ", "§b", "Спонсор"),
-	WARDEN("§2[§lM§2+] ", "§2", "Пр. Модератор"),
+	SPONSOR("§2[§lM§2++] ", "§b", "Модератор III"),
+	WARDEN("§2[§lM§2+] ", "§2", "Модератор II"),
 	MODER("§2[§lM§2] ", "§2", "Модератор"),
 	RECRUIT("§2[§lR§2] ", "§2", "Модератор-стажёр"),
 	BUILDER("§e[§lB§e] ", "§e", "Билдер"),
